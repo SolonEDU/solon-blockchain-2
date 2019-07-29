@@ -21,7 +21,8 @@ router.get('/policy', ensureAuthenticated, (req, res) =>
     type: req.user.type,
     name: req.user.name,
     osis: req.user.osis,
-    email: req.user.email
+    email: req.user.email,
+    publicaddress: req.user.publicaddress
   })
 );
 
@@ -37,11 +38,23 @@ router.get('/policyhistory', ensureAuthenticated, (req, res) =>
 
 // Budget
 router.get('/budget', ensureAuthenticated, (req, res) =>
-  res.render('budget', {
+  res.render('./budget/src/budget', {
     type: req.user.type,
     name: req.user.name,
     osis: req.user.osis,
-    email: req.user.email
+    email: req.user.email,
+    publicaddress: req.user.publicaddress
+  })
+);
+
+// Budget
+router.get('/budgethistory', ensureAuthenticated, (req, res) =>
+  res.render('./budget/src/budgethistory', {
+    type: req.user.type,
+    name: req.user.name,
+    osis: req.user.osis,
+    email: req.user.email,
+    publicaddress: req.user.publicaddress
   })
 );
 
