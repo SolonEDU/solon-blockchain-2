@@ -1,51 +1,159 @@
 <!-- Navigation -->
 <nav class="navbar navbar-toggleable navbar-expand-lg fixed-top navbar-light bg-light px-5" id="mainNav">
-    <a class="navbar-brand js-scroll-trigger" href="#">
-        <img src="img/logo.png" width="50px" class="d-inline-block" alt="solon logo"> Solon
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item mx-0 mx-lg-1">
-                <a class="active nav-link py-3 px-0 px-lg-3" href="/dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-                <a class="nav-link py-3 px-0 px-lg-3" href="/policy">Policy</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-                <a class="nav-link py-3 px-0 px-lg-3" href="/budget">Budget</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-                <a class="my-2 px-3 btn btn-outline-primary" href="/users/logout">Log Out</a>
-            </li>
-        </ul>
-    </div>
+  <a class="navbar-brand js-scroll-trigger" href="#">
+    <img src="img/logo.png" width="50px" class="d-inline-block" alt="solon logo"> Solon
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="active nav-link py-3 px-0 px-lg-3" href="/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="nav-link py-3 px-0 px-lg-3" href="/policy">Policy</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="nav-link py-3 px-0 px-lg-3" href="/budget">Budget</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="my-2 px-3 btn btn-outline-primary" href="/users/logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <div class="container py-5 mt-5">
-    <h1 class="mt-4">Dashboard</h1>
+  <div class="text-center">
+    <h1 class="display-4">Dashboard</h1>
     <p class="lead mb-3">Welcome
-        <% if (type == 'parent') { %>
-        parent of
-        <% } %>
-        <%= osis %>
+      <% if (type == 'parent') { %>
+      parent of
+      <% } %>
+      <%= osis %>
     </p>
-    <h2>Profile</h2>
-    <p>School Name: </p>
-    <p>School Contact: </p>
-    <p>OSIS: <%= osis %></p>
-    <p>Parent Account Email: </p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <!--Profile Box-->
+    <div class="col-sm-6">
+      <div class="container">
+        <div class="p-3 mb-2 bg-light text-dark">
+          <div class="text-center">
+            <h2>Profile</h2>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th scope="col">Name</th>
+                  <td><%= name %></td>
+                </tr>
+                <tr>
+                  <th scope="col">
+                    <% if (type == 'parent') { %>
+                    Student's
+                    <% } %>
+                    OSIS
+                  </th>
+                  <td>
+                    <%= osis %></td>
+                </tr>
+                <% if (type == 'student') { %>
+                <tr>
+                  <th scope="col">Grade</th>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <th scope="col">Date of Birth</th>
+                  <td>01/01/02</td>
+                </tr>
+                <tr>
+                  <th scope="col">Homeroom</th>
+                  <td>9ZZ</td>
+                </tr>
+                <% } %>
+                <tr>
+                  <th scope="col">Email</th>
+                  <td><a href="mailto:<%= email %>"><%= email %></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End of Profile Box-->
+
+    <!--Messages Box-->
+    <div class="col-sm-6">
+      <div class="container">
+        <div class="p-3 mb-2 bg-light text-dark">
+          <div class="text-center">
+            <h2>Message Board</h2>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td scope="col">
+                    For technical assistance, questions, or concerns,
+                    please email
+                    <a href="mailto: solonedu2019@gmail.com">solonedu2019@gmail.com</a>
+                    or visit the <a href="/">home page</a> for more information.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Lunch will be served in the library while the cafeteria undergoes renovations.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    The school doors will be locked at 7:55 AM from now on. If you are late, you don't deserve an
+                    education.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End of Messages Box-->
+
+    <!--School Information Box-->
+    <div class="col-sm-6">
+      <div class="container">
+        <div class="p-3 mb-2 bg-light text-dark">
+          <div class="text-center">
+            <h2>School Information</h2>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th scope="col">Name</th>
+                  <td>Stuyvesant High School</td>
+                </tr>
+                <tr>
+                  <th scope="col">Website</th>
+                  <td><a href="http://stuy.edu">stuy.edu</a></td>
+                </tr>
+                <tr>
+                  <th scope="col">Contact</th>
+                  <td><a href="mailto:contact@stuy.edu">contact@stuy.edu</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

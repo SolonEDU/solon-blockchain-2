@@ -9,15 +9,29 @@ router.get('/', (req, res) => res.render('welcome'));
 router.get('/dashboard', ensureAuthenticated, (req, res) =>
   res.render('dashboard', {
     type: req.user.type,
-    osis: req.user.osis
+    name: req.user.name,
+    osis: req.user.osis,
+    email: req.user.email
   })
 );
 
 // Policy
 router.get('/policy', ensureAuthenticated, (req, res) =>
-  res.render('policy', {
+  res.render('./policy/src/policy', {
     type: req.user.type,
-    osis: req.user.osis
+    name: req.user.name,
+    osis: req.user.osis,
+    email: req.user.email
+  })
+);
+
+// Policy History
+router.get('/policyhistory', ensureAuthenticated, (req, res) =>
+  res.render('./policy/src/policyhistory', {
+    type: req.user.type,
+    name: req.user.name,
+    osis: req.user.osis,
+    email: req.user.email
   })
 );
 
@@ -25,7 +39,9 @@ router.get('/policy', ensureAuthenticated, (req, res) =>
 router.get('/budget', ensureAuthenticated, (req, res) =>
   res.render('budget', {
     type: req.user.type,
-    osis: req.user.osis
+    name: req.user.name,
+    osis: req.user.osis,
+    email: req.user.email
   })
 );
 
