@@ -1,3 +1,3 @@
 $('.js-scroll-trigger').on('click', function () {
-    $('.navbar-collapse').collapse('hide');
+  $('.navbar-collapse').collapse('hide');
 });
