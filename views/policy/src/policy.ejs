@@ -19,6 +19,9 @@
         <a class="nav-link py-3 px-0 px-lg-3" href="/budget">Budget</a>
       </li>
       <li class="nav-item mx-0 mx-lg-1">
+        <a class="nav-link py-3 px-0 px-lg-3" href="/forum">Forum</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
         <a class="my-2 px-3 btn btn-outline-primary" href="/users/logout">Log Out</a>
       </li>
     </ul>
@@ -83,7 +86,7 @@
         <br>
         Time Span
         <div class="slidecontainer">
-          <input type="range" min="1" max="7" value="1" class="slider" style="width:75%" id="deadline">
+          <input type="range" min="1" max="7" value="1" class="slider" style="width:100%" id="deadline">
           <p>
             <i>This proposal will expire in:</i>
             <b><span id="demo"><b></span> day(s)
@@ -92,8 +95,8 @@
 
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button id="button-click" class="btn btn-unique" style="background-color:black; color:white;">Submit</button>
-        <button class="btn btn-unique" data-dismiss="modal" style="background-color:black; color:white;">Cancel</button>
+        <button id="button-click" class="btn btn-outline-primary">Submit</button>
+        <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

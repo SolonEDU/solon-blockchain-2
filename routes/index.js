@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
+// Post Model
+const Post = require('../models/Post');
+
 // Welcome Page
 router.get('/', (req, res) => res.render('welcome'));
 
@@ -49,7 +52,7 @@ router.get('/budget', ensureAuthenticated, (req, res) =>
 
 // Budget
 router.get('/budgethistory', ensureAuthenticated, (req, res) =>
-  res.render('./budget/src/budgethistory', {
+  res.render('forum', {
     type: req.user.type,
     name: req.user.name,
     osis: req.user.osis,
@@ -57,5 +60,31 @@ router.get('/budgethistory', ensureAuthenticated, (req, res) =>
     publicaddress: req.user.publicaddress
   })
 );
+
+// Forum
+router.get('/forum', ensureAuthenticated, (req, res) => {
+  Post.find({}, (err, posts) => {
+    res.render('forum', {
+      posts: posts,
+      type: req.user.type,
+      name: req.user.name,
+      osis: req.user.osis,
+      email: req.user.email,
+      publicaddress: req.user.publicaddress
+    })
+  });
+});
+
+// Add Forum Post
+router.post('/forum/addpost', (req, res) => {
+  var postData = new Post(req.body);
+  postData.save()
+    .then(result => {
+      res.redirect('/forum');
+    })
+    .catch(err => {
+      res.status(400).send("Unable to save data");
+    });
+});
 
 module.exports = router;

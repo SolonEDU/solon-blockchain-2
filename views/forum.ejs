@@ -1,0 +1,100 @@
+<!-- Navigation -->
+<nav class="navbar navbar-toggleable navbar-expand-lg fixed-top navbar-light bg-light px-5" id="mainNav">
+  <a class="navbar-brand js-scroll-trigger" href="/">
+    <img src="img/logo.png" width="50px" class="d-inline-block" alt="solon logo"> Solon
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="nav-link py-3 px-0 px-lg-3" href="/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="nav-link py-3 px-0 px-lg-3" href="/policy">Policy</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="nav-link py-3 px-0 px-lg-3" href="/budget">Budget</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="active nav-link py-3 px-0 px-lg-3" href="/forum">Forum</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
+        <a class="my-2 px-3 btn btn-outline-primary" href="/users/logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!--Old Posts-->
+<div class="container py-5 mt-5">
+  <h1 class="text-center display-4">Forum</h1>
+  <% if(posts.length == 0) { %>
+  <h3 class="text-center">There are no posts to display.</h3>
+  <% } %>
+  <% for(let i = 0; i < posts.length; i++) { %>
+  <div class="card p-3 my-3">
+    <h3>Title: <%= posts[i].title %></h3>
+    <h5>Author: <%= posts[i].author %></h5>
+    <p class="lead"><%= posts[i].body %></p>
+  </div>
+  <% } %>
+</div>
+<!--End of Old Posts-->
+
+<!--New Post Form-->
+<div class="modal fade" id="newpost" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Make a New Post</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="forum/addpost" class="text-center md-form mb-3" method="POST">
+          <div class="md-form mb-3">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Enter Title of Post" />
+          </div>
+          <div class="md-form mb-3">
+            <label for="body">Body</label>
+            <textarea name="body" class="form-control md-textarea" style="height:500px"
+              placeholder="Enter Body of Post"></textarea>
+          </div>
+          <input type="hidden" name="author" value=<%= name %> />
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <input type="submit" class="btn btn-outline-primary" value="Add Post" />
+        <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--End of New Post Form-->
+
+<!--New Post Button-->
+<div class="fixed-bottom">
+  <div class="float-right">
+    <a href="#" data-toggle="modal" data-target="#newpost" style="color:white;">
+      <button type="button" class="btn btn-primary btn-lg" style="border-radius:100%; margin:20px 20px;">
+        +
+      </button>
+    </a>
+  </div>
+</div>
+<!--End of New Post Button-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script>
+  $('.modal').on('hidden.bs.modal', function () {
+    $(this).find('form')[0].reset();
+  });
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
