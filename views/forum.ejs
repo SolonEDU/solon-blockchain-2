@@ -30,15 +30,19 @@
 
 <!--Old Posts-->
 <div class="container py-5 mt-5">
-  <h1 class="text-center display-4">Forum</h1>
+  <h1 class="text-center display-4 pb-3">Forum</h1>
   <% if(posts.length == 0) { %>
   <h3 class="text-center">There are no posts to display.</h3>
   <% } %>
   <% for(let i = 0; i < posts.length; i++) { %>
-  <div class="card p-3 my-3">
-    <h3>Title: <%= posts[i].title %></h3>
-    <h5>Author: <%= posts[i].author %></h5>
-    <p class="lead"><%= posts[i].body %></p>
+  <div class="card my-3">
+    <div class="card-header">
+      <h4 class="card-title"><%= posts[i].title %></h4>
+      <h5 class="card-subtitle text-muted">Author: <%= posts[i].author %></h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= posts[i].body %></p>
+    </div>
   </div>
   <% } %>
 </div>
@@ -49,7 +53,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Make a New Post</h4>
+        <h4 class="modal-title w-100">Make a New Post</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -65,9 +69,9 @@
             <textarea name="body" class="form-control md-textarea" style="height:500px"
               placeholder="Enter Body of Post"></textarea>
           </div>
-          <input type="hidden" name="author" value=<%= name %> />
+          <input type="hidden" name="author" value="<%= name %>" />
       </div>
-      <div class="modal-footer d-flex justify-content-center">
+      <div class=" modal-footer d-flex justify-content-center">
         <input type="submit" class="btn btn-outline-primary" value="Add Post" />
         <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
       </div>
