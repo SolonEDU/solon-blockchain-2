@@ -32,10 +32,10 @@
   <h1 class="text-center display-4 pb-3">Policy</h1>
   <ul class="nav nav-pills justify-content-center">
     <li class="nav-item">
-      <a class="nav-link active" href="policies">Ongoing</a>
+      <button class="nav-link active" id="ongoing">Ongoing</button>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="policyhistory">History</a>
+      <button class="nav-link" id="history">History</button>
     </li>
   </ul>
   <br>
@@ -45,9 +45,11 @@
 
   <br>
 
-  <div class="row" id="display">
+  <div class="row" id="ongoing_display">
   </div>
-  <br>
+
+  <div class="row" id="past_display">
+  </div>
 </div>
 
 <!--New Policy Form-->
@@ -89,7 +91,7 @@
           <input type="range" min="1" max="7" value="1" class="slider" style="width:100%" id="deadline">
           <p>
             <i>This proposal will expire in:</i>
-            <b><span id="demo"><b></span> day(s)
+            <b><span id="demo"><b></span> minute(s)
           </p>
         </div>
 
