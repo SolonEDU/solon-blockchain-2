@@ -5,7 +5,7 @@ import "./Budget.sol";
 contract BudgetCreator {
     event NewContract(address indexed _budget_id);
 
-    address public last_sender;
+    //address public last_sender;
 
     mapping(uint => Budget) public budgets;
     uint public contract_count;
@@ -14,7 +14,7 @@ contract BudgetCreator {
         budgets[contract_count] = new Budget(msg.sender);
         emit NewContract(address(budgets[contract_count]));
         contract_count++;
-        last_sender = msg.sender;
+        //last_sender = msg.sender;
     }
 
 }

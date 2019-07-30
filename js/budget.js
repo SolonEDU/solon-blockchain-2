@@ -210,7 +210,7 @@ App = {
         $("#accountAddress").html("Your Account: " + account);
       }
     });
-    $.getJSON("BudgetCreator.json", function (budget) {
+    $.getJSON("/js/BudgetCreator.json", function (budget) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.BudgetCreator = TruffleContract(budget);
       // Connect provider to interact with contract
