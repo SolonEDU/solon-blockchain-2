@@ -203,7 +203,7 @@ App = {
   },
 
   initContract: function () {
-    $.getJSON("PolicyCreator.json", function (policy) {
+    $.getJSON("/js/PolicyCreator.json", function (policy) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.PolicyCreator = TruffleContract(policy);
       // Connect provider to interact with contract
@@ -373,6 +373,8 @@ App = {
       $("#ongoing_display").hide();
       $("#past_display").show();
       $(".fixed-bottom").hide();
+      document.getElementById("history").className = "btn btn-primary mx-2";
+      document.getElementById("ongoing").className = "btn btn-outline-primary mx-2";
     });
   },
 
@@ -381,6 +383,8 @@ App = {
       $("#past_display").hide();
       $("#ongoing_display").show();
       $(".fixed-bottom").show();
+      document.getElementById("ongoing").className = "btn btn-primary mx-2";
+      document.getElementById("history").className = "btn btn-outline-primary mx-2";
     });
   },
 

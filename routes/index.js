@@ -29,16 +29,6 @@ router.get('/policy', ensureAuthenticated, (req, res) =>
   })
 );
 
-// Policy History
-router.get('/policyhistory', ensureAuthenticated, (req, res) =>
-  res.render('./policy/src/policyhistory', {
-    type: req.user.type,
-    name: req.user.name,
-    osis: req.user.osis,
-    email: req.user.email
-  })
-);
-
 // Budget
 router.get('/budget', ensureAuthenticated, (req, res) =>
   res.render('./budget/src/budget', {
@@ -50,7 +40,7 @@ router.get('/budget', ensureAuthenticated, (req, res) =>
   })
 );
 
-// Budget
+// Budget History
 router.get('/budgethistory', ensureAuthenticated, (req, res) =>
   res.render('forum', {
     type: req.user.type,
