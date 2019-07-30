@@ -1,170 +1,170 @@
 abi = [
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "name",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "creation",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "deadline",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "options",
-      "outputs": [
-        {
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "vote_count",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "description",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "voters",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "option_count",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "name": "_description",
-          "type": "string"
-        },
-        {
-          "name": "_creation",
-          "type": "string"
-        },
-        {
-          "name": "_deadline",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "_option_id",
-          "type": "uint256"
-        }
-      ],
-      "name": "votedEvent",
-      "type": "event"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_option_id",
-          "type": "uint256"
-        }
-      ],
-      "name": "vote",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "creation",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "deadline",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "options",
+    "outputs": [
+      {
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "vote_count",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "description",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "voters",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "option_count",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "name": "_creation",
+        "type": "string"
+      },
+      {
+        "name": "_deadline",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "_option_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "votedEvent",
+    "type": "event"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_option_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "vote",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+];
 
 App = {
   web3Provider: null,
@@ -203,7 +203,7 @@ App = {
   },
 
   initContract: function () {
-    $.getJSON('/js/PolicyCreator.json', function (policy) {
+    $.getJSON("PolicyCreator.json", function (policy) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.PolicyCreator = TruffleContract(policy);
       // Connect provider to interact with contract
@@ -219,7 +219,6 @@ App = {
     $("#button-click").on("click", function () {
       App.contracts.PolicyCreator.deployed().then(function (instance) {
         instance.add_contract(document.getElementById('proposal_name').value, document.getElementById('proposal_description').value, new Date().toString(), document.getElementById('deadline').value);
-        // App.listenForNewContract();
       });
     });
     return App.get_data();
@@ -275,10 +274,11 @@ App = {
   },
 
   render: function () {
-    // var loader = $("#loader");
-    // var content = $("#content");
-    // var voted = $("#voted");
-    var display = $("#display");
+    App.display_history();
+    App.display_ongoing();
+    var display = $("#ongoing_display");
+    var history = $("#past_display")
+    history.hide();
     for (var id = 0; id < App.policies.length; id++) {
 
       var address = App.policies[id][0];
@@ -297,15 +297,12 @@ App = {
       var form = "<form id=\"form" + id + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + id + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + id + "\"></select></div>" + button + "<hr/></form>"
       var body = "<div class=\"modal-body\"><p>" + description + "</p>" + timer + table + form + "</div>"
 
-      var policy_box = "<div class=\"col-sm-3\"><div class=\"container\"><div class=\"modal\" id=\"" + "modal" + id + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
+      var policy_box = "<div id=\"box" + id + "\" class=\"col-sm-3\"><div class=\"container\"><div class=\"modal\" id=\"" + "modal" + id + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
       display.append(policy_box);
-      App.countdown(new Date(creation_date), deadline, id);
+      App.countdown(new Date(creation_date), deadline, id, policy_box);
       App.create_table(id);
-    }
 
-    // loader.show();
-    // content.hide();
-    // voted.hide();
+    }
 
     // Load account data
     web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
@@ -371,6 +368,22 @@ App = {
     });
   },
 
+  display_history: function () {
+    $("#history").on("click", function () {
+      $("#ongoing_display").hide();
+      $("#past_display").show();
+      $(".fixed-bottom").hide();
+    });
+  },
+
+  display_ongoing: function () {
+    $("#ongoing").on("click", function () {
+      $("#past_display").hide();
+      $("#ongoing_display").show();
+      $(".fixed-bottom").show();
+    });
+  },
+
   listenForNewContract: function () {
     App.contracts.PolicyCreator.deployed().then(function (instance) {
       instance.NewContract({}, {
@@ -395,19 +408,18 @@ App = {
       }).watch(function (error, event) {
         console.log("event triggered", event)
         $("#modal" + policy_id).modal('hide');
-        $("#display").empty();
-        App.render();
+        App.create_table(policy_id);
         $("#modal" + policy_id).modal('show');
       });
     });
   },
 
-  countdown: function (proposal_creation, deadline, id) {
+  countdown: function (proposal_creation, deadline, id, policy_box) {
     var timer = $(".timer" + id.toString());
     var end = new Date();
-    end.setDate(proposal_creation.getDate() + Number(deadline));
+    end.setDate(proposal_creation.getDate());
     end.setHours(proposal_creation.getHours());
-    end.setMinutes(proposal_creation.getMinutes());
+    end.setMinutes(proposal_creation.getMinutes() + Number(deadline));
     end.setSeconds(proposal_creation.getSeconds());
     var x = setInterval(function () {
       timer.empty();
@@ -423,13 +435,14 @@ App = {
 
       if (distance < 0) {
         clearInterval(x);
-        //App.history.push(App.policies[]);
-        //App.policies.pull()
+        $('#box' + id).remove();
+        $('#past_display').append(policy_box);
         timer.empty();
         timer.append("the vote is over");
+        App.create_table(id);
         $('#form' + id).hide();
       }
-    })
+    }, 1000)
   }
 };
 
