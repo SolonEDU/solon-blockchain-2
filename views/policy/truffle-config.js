@@ -14,9 +14,15 @@ module.exports = {
     // develop: {
     //   port: 8545
     // }
-    rinkeby: {
+    // rinkeby: {
+    //   provider: function () {
+    //     return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/06648fac12b143e6bd45537cdd9b756f");
+    //   },
+    //   network_id: "*"
+    // },
+    ropsten: {
       provider: function () {
-        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/06648fac12b143e6bd45537cdd9b756f");
+        return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/06648fac12b143e6bd45537cdd9b756f")
       },
       network_id: "*"
     }
