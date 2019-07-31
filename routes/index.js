@@ -29,6 +29,13 @@ router.get('/policy', ensureAuthenticated, (req, res) =>
   })
 );
 
+// Address Error
+router.get('/addresserror', ensureAuthenticated, (req, res) =>
+  res.render('./policy/src/addresserror', {
+    publicaddress: req.user.publicaddress
+  })
+);
+
 // Budget
 router.get('/budget', ensureAuthenticated, (req, res) =>
   res.render('./budget/src/budget', {
