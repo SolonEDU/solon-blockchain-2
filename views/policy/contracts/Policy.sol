@@ -10,21 +10,23 @@ contract Policy {
         uint vote_count;
     }
 
+    struct Data{
+        string name;
+        string description;
+        string creation;
+        string deadline;
+    }
+
     mapping(uint => Option) public options;
+    mapping(uint => Data) public data;
     mapping(address => bool) public voters;
     uint public option_count;
-    string public name;
-    string public description;
-    string public creation;
-    string public deadline;
+
 
     constructor(string memory _name, string memory _description, string memory _creation, string memory _deadline) public {
         add_option("Yes");
         add_option("No");
-        name = _name;
-        description = _description;
-        creation = _creation;
-        deadline = _deadline;
+        data[0] = Data(_name,_description,_creation,_deadline);
     }
 
     function add_option(string memory _name) private {
