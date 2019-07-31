@@ -263,7 +263,6 @@ App = {
 
       var table = "<table class=\"table\"><thead><tr><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
       var button = "<button type=\"submit\" class=\"btn btn-outline-primary\">" +
-        "<span id=\"loading-vote\" class=\"mr-2 spinner-border spinner-border-sm d-none\" role=\"status\" aria-hidden=\"true\"></span>" +
         "Vote" +
         "</button >"
       var form = "<form id=\"form" + address + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + address + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + address + "\"></select></div>" + button + "<hr/></form>"
@@ -321,7 +320,6 @@ App = {
       }
       else { console.log(error) }
     });
-    document.getElementById("loading-vote").className = "mr-2 spinner-border spinner-border-sm";
   },
 
   display_history: function () {
@@ -367,7 +365,6 @@ App = {
       $("#modal" + address).modal("hide");
       App.create_table(address);
       $("#modal" + address).modal("show");
-      document.getElementById("loading-vote").className = "mr-2 spinner-border spinner-border-sm d-none";
     });
   },
 
