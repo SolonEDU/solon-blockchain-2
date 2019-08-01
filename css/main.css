@@ -7,11 +7,6 @@
     background: linear-gradient(180deg, #00c6ff 0%, #E55D87 100%);
 }
 
-.bg-gold {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(180deg, #f7d065 0%, #92772d 100%);
-}
-
 .bg-gradient-h {
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, #00c6ff 0%, #E55D87 100%);

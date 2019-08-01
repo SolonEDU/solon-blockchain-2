@@ -51,7 +51,33 @@
   <div class="row" id="display">
   </div>
   <br>
+
 </div>
+
+<!--Deposit Form-->
+<div class="modal fade" id="deposit" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100">Deposit</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-3">
+          <label data-error="wrong" data-success="right" for="deposit_amount">Amount</label>
+          <input type="text" id="deposit_amount" class="form-control validate">
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button id="button-click" class="btn btn-outline-primary">Submit</button>
+        <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End of Deposit Form-->
 
 <!--New Policy Form-->
 <div class="modal fade" id="newpolicy" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -110,17 +136,31 @@
 </div>
 <!--End of New Policy Form-->
 
-<!--New Policy Button-->
-<div class="fixed-bottom">
-  <div class="float-right">
-    <a href="#" data-toggle="modal" data-target="#newpolicy" style="color:white;">
-      <button type="button" class="btn btn-primary btn-lg" style="border-radius:100%; margin:20px 20px;">
-        +
-      </button>
-    </a>
+<div class="navbar navbar-default fixed-bottom">
+  <!--Deposit Button-->
+  <div>
+    <div class="float-left">
+      <a href="#" data-toggle="modal" data-target="#deposit" style="color:white;">
+        <button type="button" class="btn btn-warning btn-lg" style="margin:18px 10px">
+          Deposit
+        </button>
+      </a>
+    </div>
   </div>
+  <!--End of Deposit Button-->
+
+  <!--New Policy Button-->
+  <div>
+    <div class="float-right">
+      <a href="#" data-toggle="modal" data-target="#newpolicy" style="color:white;">
+        <button type="button" class="btn btn-primary btn-lg" style="border-radius:100%; margin:18px 10px;">
+          +
+        </button>
+      </a>
+    </div>
+  </div>
+  <!--End of New Policy Button-->
 </div>
-<!--End of New Policy Button-->
 
 <script>
   var slider = document.getElementById("deadline");
