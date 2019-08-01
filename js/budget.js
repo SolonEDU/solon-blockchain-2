@@ -286,6 +286,7 @@ App = {
 
   get_data: function () {
     console.log('gottem');
+    App.deposit_money();
     var budget_creator;
     App.contracts.BudgetCreator.deployed().then(function (instance) {
       budget_creator = instance;
@@ -364,30 +365,36 @@ App = {
     // voted.hide();
 
     // Load account data
+  },
+
+  get_balance: function () {
     App.contracts.BudgetCreator.deployed().then(function (instance) {
-      console.log(instance.address);
-      console.log(App.account)
       web3.eth.getBalance(instance.address, function (err, res) {
         if (err) {
           console.log(err);
         } else {
-          web3.eth.sendTransaction({
-            to: instance.address,
-            from: App.account,
-            value: web3.toWei(1, "ether"),
-            gas: 4700000
-          }, function (err, transactionHash) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log(transactionHash);
-            }
-          });
+          console.log(res);
+          document.querySelector('#contract_balance').innerHTML = `Current Balance: ${res / 1e18} ETH`;
         }
-        console.log(res);
-      });
+      })
     })
+  },
 
+  deposit_money: function () {
+    App.get_balance();
+    $("#deposit-click").on("click", function () {
+      App.contracts.BudgetCreator.deployed().then(function (instance) {
+        web3.eth.sendTransaction({
+          to: instance.address,
+          from: App.account,
+          value: web3.toWei(document.querySelector("#deposit_amount").value, "ether"),
+          gas: 4700000
+        }, function (err, transactionHash) {
+          if (err) { console.log(err) }
+          else { console.log(transactionHash); }
+        });
+      });
+    });
   },
 
   create_table: function (address) {
