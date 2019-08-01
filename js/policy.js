@@ -1,48 +1,6 @@
 abi = [
   {
     "constant": true,
-    "inputs": [],
-    "name": "name",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "creation",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "deadline",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -70,20 +28,6 @@ abi = [
   },
   {
     "constant": true,
-    "inputs": [],
-    "name": "description",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -95,6 +39,37 @@ abi = [
       {
         "name": "",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "data",
+    "outputs": [
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "name": "creation",
+        "type": "string"
+      },
+      {
+        "name": "deadline",
+        "type": "string"
       }
     ],
     "payable": false,
@@ -211,6 +186,8 @@ App = {
 
       App.listenForNewContract();
 
+      App.click_cancel();
+
       return App.create_contract();
     });
   },
@@ -220,54 +197,49 @@ App = {
       App.contracts.PolicyCreator.deployed().then(function (instance) {
         instance.add_contract(document.getElementById('proposal_name').value, document.getElementById('proposal_description').value, new Date().toString(), document.getElementById('deadline').value);
       });
+      document.getElementById("loading-contract").className = "mr-2 spinner-border spinner-border-sm";
     });
     return App.get_data();
   },
 
+  click_cancel: function () {
+    $("#button-cancel").on("click", function () {
+      document.getElementById("loading-contract").className = "mr-2 spinner-border spinner-border-sm d-none";
+    });
+  },
+
   get_data: function () {
     var policy_creator;
-    var policy_address;
-    App.contracts.PolicyCreator.deployed().then(function (instance) {
-      policy_creator = instance;
+    App.contracts.PolicyCreator.deployed().then(function (creator) {
+      policy_creator = creator;
       return policy_creator.contract_count();
     }).then(function (count) {
       App.policy_count = count;
       for (var i = 0; i < count; i++) {
+        var policy_address;
         policy_creator.policies(i).then(function (address) {
           policy_address = address;
           return web3.eth.contract(abi).at(address);
         }).then(function (contract) {
           var data = []
-          contract.name(function (error, result) {
-            if (!error) { data.push(result); }
-            else { console.log(error); }
-          });
-          contract.description(function (error, result) {
-            if (!error) { data.push(result); }
-            else { console.log(error); }
-          });
-          data.push(policy_address);
-          contract.creation(function (error, result) {
-            if (!error) { data.push(result); }
-            else { console.log(error); }
-          });
-          contract.deadline(function (error, result) {
-            if (!error) { data.push(result); }
-            else { console.log(error); }
-          });
-          var push_data = setInterval(function () {
-            if (data.length == 5) {
-              App.policies.push(data);
-              clearInterval(push_data);
+          data.push(policy_address)
+          contract.data(0, function (error, result) {
+            if (!error) {
+              data.push(result[0]);
+              data.push(result[1]);
+              data.push(result[2]);
+              data.push(result[3]);
+              App.policies.push(data)
             }
-          }, 1000);
+            else { console.log(error); }
+          });
         });
       }
     }).then(function () {
-      var x = setInterval(function () {
+      var render_data = setInterval(function () {
         if (App.policies.length == App.policy_count) {
-          App.render();
-          clearInterval(x);
+          App.render()
+          clearInterval(render_data);
         }
       }, 1000);
     });
@@ -276,95 +248,83 @@ App = {
   render: function () {
     App.display_history();
     App.display_ongoing();
-    var display = $("#ongoing_display");
-    var history = $("#past_display")
-    history.hide();
+    $("#past_display").hide();
     for (var id = 0; id < App.policies.length; id++) {
-
-      var address = App.policies[id][0];
+      var address = App.policies[id][0]
       var name = App.policies[id][1];
       var description = App.policies[id][2];
       var creation_date = App.policies[id][3];
       var deadline = App.policies[id][4];
 
-      var timer = "<p class=\"timer" + id + "\"> </p>";
+      var timer = "<p class=\"timer" + address + "\"> </p>";
 
-      var header = "<div class=\"modal-header\"><h2 class=\"modal-title\">" + name + "</h2><button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button></div>"
-      var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + id + "\">" + name + "</a></h4>" + timer + "</div>"
+      var header = "<div class=\"modal-header text-center\"><h2 class=\"modal-title w-100\">" + name + "</h2><button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button></div>"
+      var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + address + "\">" + name + "</a></h4>" + timer + "</div>"
 
-      var table = "<table class=\"table\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + id + "\"></tbody></table>"
-      var button = "<button type=\"submit\" class=\"btn btn-primary\">Vote</button>"
-      var form = "<form id=\"form" + id + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + id + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + id + "\"></select></div>" + button + "<hr/></form>"
+      var table = "<table class=\"table\"><thead><tr><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
+      var button = "<button type=\"submit\" class=\"btn btn-outline-primary\">" +
+        "Vote" +
+        "</button >"
+      var form = "<form id=\"form" + address + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + address + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + address + "\"></select></div>" + button + "<hr/></form>"
       var body = "<div class=\"modal-body\"><p>" + description + "</p>" + timer + table + form + "</div>"
-
-      var policy_box = "<div id=\"box" + id + "\" class=\"col-sm-3\"><div class=\"container\"><div class=\"modal\" id=\"" + "modal" + id + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
-      display.append(policy_box);
-      App.countdown(new Date(creation_date), deadline, id, policy_box);
-      App.create_table(id);
-
+      var policy_box = "<div id=\"box" + address + "\" class=\"col-sm-4 text-center\"><div class=\"container\"><div class=\"modal text-center\" id=\"" + "modal" + address + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
+      $("#ongoing_display").append(policy_box);
+      App.countdown(new Date(creation_date), deadline, address, policy_box);
+      App.create_table(address);
     }
 
     // Load account data
-    web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
+    web3.eth.getCoinbase(function (err, account) {
       if (err === null) {
         App.account = account;
-        $("#accountAddress").html("Your Account: " + account);
+        $("#accountAddress").html(account);
+        const publicaddress = document.getElementById("publicaddress").innerText.toLowerCase();
+        if (account != publicaddress) {
+          document.getElementById("content").className = "d-none";
+          // window.alert(`Invalid public address detected. Please change your Metamask account to the one used during registration for Solon and reload the page. \nThe public address of that account should be: ${publicaddress}`);
+          window.location.href = "/policy/addresserror";
+        };
       }
     });
   },
 
-  create_table: function (policy_id) {
-    var policy;
-    App.contracts.PolicyCreator.deployed().then(function (creator) {
-      return creator.policies(Number(policy_id));
-    }).then(function (address) {
-      return web3.eth.contract(abi).at(address);
-    }).then(function (instance) {
-      policy = instance;
-      var option_results = $("#option_results" + policy_id)
-      option_results.empty()
-      var option_select = $("#option_select" + policy_id)
-      option_select.empty()
-      for (var i = 0; i < 2; i++) {
-        instance.options(i, function (error, option) {
-          if (!error) {
-            var id = Number(option[0]) + 1;
-            var name = option[1];
-            var vote_count = option[2];
-
-            var option_template = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + vote_count + "</td></tr>"
-            option_results.append(option_template);
-
-            var option_options = "<option value='" + id + "'>" + name + "</option"
-            option_select.append(option_options);
-          }
-          else { console.log(error) }
-        });
-      }
-      policy.voters(App.account, function (error, hasVoted) {
+  create_table: function (address) {
+    var contract = web3.eth.contract(abi).at(address);
+    var option_results = $("#option_results" + address);
+    option_results.empty();
+    var option_select = $("#option_select" + address);
+    option_select.empty();
+    for (var i = 0; i < 2; i++) {
+      contract.options(i, function (error, option) {
         if (!error) {
-          if (hasVoted) { $("#form" + policy_id).hide(); }
+          var id = Number(option[0]) + 1;
+          var name = option[1];
+          var vote_count = option[2];
+
+          var option_template = "<tr><th>" + name + "</th><td>" + vote_count + "</td></tr>";
+          option_results.append(option_template);
+
+          var option_options = "<option value=" + id + ">" + name + "</option>";
+          option_select.append(option_options);
         }
         else { console.log(error) }
       });
-    }).catch(function (error) {
-      console.warn(error);
+    }
+    contract.voters(App.account, function (error, hasVoted) {
+      if (!error) { if (hasVoted) { $("#form" + address).hide(); } }
+      else { console.log(error) }
     });
   },
 
-  castVote: function (policy_id) {
-    var option_id = $("#option_select" + policy_id).val() - 1;
-    App.contracts.PolicyCreator.deployed().then(function (creator) {
-      return creator.policies(Number(policy_id));
-    }).then(function (address) {
-      return web3.eth.contract(abi).at(address);
-    }).then(function (policy) {
-      policy.vote(option_id, function (error, result) {
-        if (!error) {
-          App.listenForNewVote(policy_id);
-        }
-        else { console.log(error) }
-      });
+  castVote: function (id) {
+    var address = App.policies[id][0]
+    var option_id = $("#option_select" + address).val() - 1;
+    var contract = web3.eth.contract(abi).at(address);
+    contract.vote(option_id, function (error, result) {
+      if (!error) {
+        App.listenForNewVote(address);
+      }
+      else { console.log(error) }
     });
   },
 
@@ -396,30 +356,26 @@ App = {
       }).watch(function (error, event) {
         console.log("event triggered", event)
         $("#newpolicy").modal('hide');
+        document.getElementById("loading-contract").className = "mr-2 spinner-border spinner-border-sm d-none";
       });
     });
   },
 
-  listenForNewVote: function (policy_id) {
-    App.contracts.PolicyCreator.deployed().then(function (creator) {
-      return creator.policies(Number(policy_id));
-    }).then(function (address) {
-      return web3.eth.contract(abi).at(address);
-    }).then(function (policy) {
-      policy.votedEvent({}, {
-        fromBlock: 'latest',
-        toBlock: 'latest'
-      }).watch(function (error, event) {
-        console.log("event triggered", event)
-        $("#modal" + policy_id).modal('hide');
-        App.create_table(policy_id);
-        $("#modal" + policy_id).modal('show');
-      });
+  listenForNewVote: function (address) {
+    var contract = web3.eth.contract(abi).at(address);
+    contract.votedEvent({}, {
+      fromBlock: 'latest',
+      toBlock: 'latest'
+    }).watch(function (error, event) {
+      console.log("event triggered", event)
+      $("#modal" + address).modal("hide");
+      App.create_table(address);
+      $("#modal" + address).modal("show");
     });
   },
 
-  countdown: function (proposal_creation, deadline, id, policy_box) {
-    var timer = $(".timer" + id.toString());
+  countdown: function (proposal_creation, deadline, address, policy_box) {
+    var timer = $(".timer" + address);
     var end = new Date();
     end.setDate(proposal_creation.getDate());
     end.setHours(proposal_creation.getHours());
@@ -439,12 +395,11 @@ App = {
 
       if (distance < 0) {
         clearInterval(x);
-        $('#box' + id).remove();
+        $('#box' + address).remove();
         $('#past_display').append(policy_box);
-        timer.empty();
-        timer.append("the vote is over");
-        App.create_table(id);
-        $('#form' + id).hide();
+        $(".timer" + address).empty();
+        App.create_table(address);
+        $('#form' + address).hide();
       }
     }, 1000)
   }

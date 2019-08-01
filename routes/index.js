@@ -5,6 +5,9 @@ const { ensureAuthenticated } = require('../config/auth');
 // Post Model
 const Post = require('../models/Post');
 
+// Club Model
+const Club = require('../models/Club');
+
 // Welcome Page
 router.get('/', (req, res) => res.render('welcome'));
 
@@ -25,6 +28,13 @@ router.get('/policy', ensureAuthenticated, (req, res) =>
     name: req.user.name,
     osis: req.user.osis,
     email: req.user.email,
+    publicaddress: req.user.publicaddress
+  })
+);
+
+// Address Error
+router.get('/policy/addresserror', ensureAuthenticated, (req, res) =>
+  res.render('./policy/src/addresserror', {
     publicaddress: req.user.publicaddress
   })
 );
@@ -76,5 +86,40 @@ router.post('/forum/addpost', (req, res) => {
       res.status(400).send("Unable to save data");
     });
 });
+
+// Clubs
+router.get('/clubs', ensureAuthenticated, (req, res) => {
+  Club.find({}, (err, clubs) => {
+    res.render('clubs', {
+      clubs: clubs,
+      type: req.user.type,
+      name: req.user.name,
+      osis: req.user.osis,
+      email: req.user.email
+    })
+  });
+});
+
+// Add Club
+router.post('/clubs/addclub', ensureAuthenticated, (req, res) => {
+  var postData = new Club(req.body);
+  postData.save()
+    .then(result => {
+      res.redirect('/clubs');
+    })
+    .catch(err => {
+      res.status(400).send("Unable to save data");
+    });
+});
+
+// Join Club
+router.post('/clubs/joinclub', ensureAuthenticated, (req, res) =>
+  res.render('joinclub', {
+    type: req.user.type,
+    name: req.user.name,
+    osis: req.user.osis,
+    email: req.user.email
+  })
+);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-toggleable navbar-expand-lg fixed-top navbar-light bg-light px-5" id="mainNav">
+<nav class="navbar navbar-toggleable navbar-expand-lg fixed-top navbar-light bg-light" id="mainNav">
   <a class="navbar-brand js-scroll-trigger" href="/">
     <img src="img/logo.png" width="50px" class="d-inline-block" alt="solon logo"> Solon
   </a>
@@ -22,6 +22,9 @@
         <a class="nav-link py-3 px-0 px-lg-3" href="/forum">Forum</a>
       </li>
       <li class="nav-item mx-0 mx-lg-1">
+        <a class="nav-link py-3 px-0 px-lg-3" href="/clubs">Clubs</a>
+      </li>
+      <li class="nav-item mx-0 mx-lg-1">
         <a class="my-2 px-3 btn btn-outline-primary" href="/users/logout">Log Out</a>
       </li>
     </ul>
@@ -32,10 +35,7 @@
   <div class="text-center">
     <h1 class="display-4">Dashboard</h1>
     <p class="lead mb-3">Welcome
-      <% if (type == 'parent') { %>
-      parent of
-      <% } %>
-      <%= osis %>
+      <%= name %>
     </p>
   </div>
 </div>
@@ -43,7 +43,7 @@
 <div class="container">
   <div class="row">
     <!--Profile Box-->
-    <div class="col-sm-6">
+    <div class="col-md-6">
       <div class="container">
         <div class="p-3 mb-2 bg-light text-dark">
           <div class="text-center">
@@ -91,7 +91,7 @@
     <!--End of Profile Box-->
 
     <!--Messages Box-->
-    <div class="col-sm-6">
+    <div class="col-md-6">
       <div class="container">
         <div class="p-3 mb-2 bg-light text-dark">
           <div class="text-center">
@@ -126,7 +126,7 @@
     <!--End of Messages Box-->
 
     <!--School Information Box-->
-    <div class="col-sm-6">
+    <div class="col-md-6">
       <div class="container">
         <div class="p-3 mb-2 bg-light text-dark">
           <div class="text-center">
