@@ -15,10 +15,9 @@ contract BudgetCreator {
                           string memory _description,
                           string memory _creation,
                           string memory _deadline,
-                          address _sender,
                           address _receiver
                           ) public {
-        budgets[contract_count] = new Budget(_name, _amount, _description, _creation, _deadline, _sender, _receiver);
+        budgets[contract_count] = new Budget(_name, _amount, _description, _creation, _deadline, _receiver);
         emit NewContract(address(budgets[contract_count]));
         contract_count++;
         //withdrawer = msg.sender;

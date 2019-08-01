@@ -11,7 +11,7 @@ contract Budget is ERC20 {
         string description;
         string creation;
         string deadline;
-        address sender;
+        bool has_sent;
         address receiver;
     }
 
@@ -20,11 +20,10 @@ contract Budget is ERC20 {
                 string memory _description,
                 string memory _creation,
                 string memory _deadline,
-                address _sender,
                 address _receiver) public { //withdrawer --> sender
         add_option("Yes");
         add_option("No");
-        data[0] = Data(_name, _amount, _description, _creation, _deadline, _sender, _receiver);
+        data[0] = Data(_name, _amount, _description, _creation, _deadline, false, _receiver);
     }
 
     event votedEvent(uint indexed _option_id);
@@ -56,6 +55,10 @@ contract Budget is ERC20 {
         voters[msg.sender] = true;
         options[_option_id].vote_count++;
         emit votedEvent(_option_id);
+    }
+
+    function sent_yet() public {
+      data[0].has_sent = true;
     }
 
     // function withdraw(uint amt) public isWithdrawer {

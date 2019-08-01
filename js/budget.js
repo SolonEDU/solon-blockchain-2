@@ -1,12 +1,35 @@
 abi = [
   {
-    "constant": true,
-    "inputs": [],
-    "name": "creator",
-    "outputs": [
+    "constant": false,
+    "inputs": [
       {
-        "name": "",
+        "name": "spender",
         "type": "address"
+      },
+      {
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -14,26 +37,75 @@ abi = [
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "name",
+    "constant": false,
+    "inputs": [
+      {
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
     "outputs": [
       {
         "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "name": "addedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "increaseAllowance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "options",
+    "outputs": [
+      {
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "name": "name",
         "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "candidatesCount",
-    "outputs": [
+      },
       {
-        "name": "",
+        "name": "vote_count",
         "type": "uint256"
       }
     ],
@@ -45,33 +117,11 @@ abi = [
     "constant": true,
     "inputs": [
       {
-        "name": "",
-        "type": "uint256"
+        "name": "account",
+        "type": "address"
       }
     ],
-    "name": "candidates",
-    "outputs": [
-      {
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "name": "voteCount",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "counter",
+    "name": "balanceOf",
     "outputs": [
       {
         "name": "",
@@ -102,14 +152,156 @@ abi = [
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "name": "subtractedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "decreaseAllowance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "data",
+    "outputs": [
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "name": "creation",
+        "type": "string"
+      },
+      {
+        "name": "deadline",
+        "type": "string"
+      },
+      {
+        "name": "has_sent",
+        "type": "bool"
+      },
+      {
+        "name": "receiver",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "option_count",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "name": "_name",
         "type": "string"
       },
       {
-        "name": "_daysAfter",
+        "name": "_amount",
         "type": "uint256"
+      },
+      {
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "name": "_creation",
+        "type": "string"
+      },
+      {
+        "name": "_deadline",
+        "type": "string"
+      },
+      {
+        "name": "_receiver",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -121,7 +313,7 @@ abi = [
     "inputs": [
       {
         "indexed": true,
-        "name": "_candidateId",
+        "name": "_option_id",
         "type": "uint256"
       }
     ],
@@ -129,10 +321,54 @@ abi = [
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
     "constant": false,
     "inputs": [
       {
-        "name": "_candidateId",
+        "name": "_option_id",
         "type": "uint256"
       }
     ],
@@ -145,22 +381,8 @@ abi = [
   {
     "constant": false,
     "inputs": [],
-    "name": "countdown",
+    "name": "sent_yet",
     "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "winner",
-    "outputs": [
-      {
-        "name": "winner",
-        "type": "string"
-      }
-    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
