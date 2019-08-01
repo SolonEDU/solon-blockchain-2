@@ -35,9 +35,9 @@
 <div class="container py-5 mt-5">
   <h1 class="text-center display-4 pb-3">Forum</h1>
   <% if(posts.length == 0) { %>
-  <h3 class="text-center">There are no posts to display.</h3>
+  <p class="lead text-center">There are no posts to display</p>
   <% } %>
-  <% for(let i = 0; i < posts.length; i++) { %>
+  <% for(let i = posts.length-1; i >= 0; i--) { %>
   <div class="card my-3">
     <div class="card-header">
       <h3 class="card-title"><%= posts[i].title %></h3>
