@@ -1,6 +1,6 @@
 # solonedu
 
-This is a user login and registration app for Solon using Node.js, Express, Passport, Mongoose, EJS and some other packages.
+Solon is an educational tool that both students and parents can use to keep up with current school events. Our goal is to create a platform where we can encourage more parent and student participation in school decisions and policy.
 
 ### Usage
 
