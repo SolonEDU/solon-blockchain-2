@@ -13,7 +13,7 @@
         <a class="nav-link py-3 px-0 px-lg-3" href="/dashboard">Dashboard</a>
       </li>
       <li class="nav-item mx-0 mx-lg-1">
-        <a class="active nav-link py-3 px-0 px-lg-3" href="/policy">Policy</a>
+        <a class="nav-link py-3 px-0 px-lg-3" href="/policy">Policy</a>
       </li>
       <li class="nav-item mx-0 mx-lg-1">
         <a class="nav-link py-3 px-0 px-lg-3" href="/budget">Budget</a>
@@ -22,7 +22,7 @@
         <a class="nav-link py-3 px-0 px-lg-3" href="/forum">Forum</a>
       </li>
       <li class="nav-item mx-0 mx-lg-1">
-        <a class="nav-link py-3 px-0 px-lg-3" href="/clubs">Clubs</a>
+        <a class="active nav-link py-3 px-0 px-lg-3" href="/clubs">Clubs</a>
       </li>
       <li class="nav-item mx-0 mx-lg-1">
         <a class="my-2 px-3 btn btn-outline-primary" href="/users/logout">Log Out</a>
@@ -33,16 +33,16 @@
 
 <div class="container pt-5 pb-3 mt-5">
   <div class="text-center">
-    <h1 class="display-4">Error</h1>
+    <h1 class="display-4">Club Join Request</h1>
   </div>
 </div>
 
 <div class="container">
   <div class="text-center">
-    <div class="alert alert-danger" style="word-wrap: break-word" role="alert">
-      <h5>Invalid public address detected. Please change your Metamask account to the one used during registration for
-        Solon and reload the page.</h5>
-      <h5>The public address of the account should be: <%= publicaddress %></h5>
+    <div class="alert alert-warning" style="word-wrap: break-word" role="alert">
+      <h5>Your request to join the club has been recorded.</h5>
     </div>
+    <button class="btn btn-outline-primary" onclick="window.location.href = '/clubs';" data-dismiss="modal">Return to
+      Clubs Page</button>
   </div>
 </div>

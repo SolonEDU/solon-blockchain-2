@@ -282,7 +282,7 @@ App = {
         if (account != publicaddress) {
           document.getElementById("content").className = "d-none";
           // window.alert(`Invalid public address detected. Please change your Metamask account to the one used during registration for Solon and reload the page. \nThe public address of that account should be: ${publicaddress}`);
-          window.location.href = "addresserror";
+          window.location.href = "/policy/addresserror";
         };
       }
     });
