@@ -381,20 +381,6 @@ abi = [
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getBalance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
   }
 ];
 
@@ -463,11 +449,20 @@ App = {
         //console.log('hey0');
         amount = Number(document.querySelector('#budget_amount').value);
         budget_address = document.querySelector('#receiver_address').value;
-        web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
-          if (err) throw err
-          acc = account;
-        });
+        acc = document.querySelector('#sender_address').value;
+        // web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
+        //   if (err) throw err;
+        //   acc = account;
+        // });
+        console.log(amount);
+        console.log(budget_address);
+        console.log(acc);
+        //var x = setInterval(function() {
+          //if(acc != undefined) {
         instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, acc, budget_address);
+           // clearInterval(x)
+          //}
+       // });
         //console.log(amount);
        // budget_creator = instance;
        // console.log('hey2');
@@ -502,8 +497,8 @@ App = {
       // });
      //);
     console.log('hey');
-    return App.get_data();
     });
+    return App.get_data();
   },
 
   get_data: function () {
@@ -525,18 +520,22 @@ App = {
           console.log('gottem1');
           budgetInstance.data(0, function(err, result) {
             console.log('gottem2');
-            if (err) throw err;
-            for(var i = 0; i < 7; i++) {
-              data.push(result[i]);
+            if (!err) {
+              for(var i = 0; i < 7; i++) {
+                data.push(result[i]);
+              }
+              App.budgets.push(data);
+            } else {
+              console.log(err);
             }
           })
-          App.budgets.push(data);
           console.log('gottem0');
         });
       }
     }).then(function () {
       var x = setInterval(function () {
         if (App.budgets.length == App.budget_count) {
+          console.log('render reached');
           App.render();
           clearInterval(x);
         }
@@ -560,23 +559,21 @@ App = {
       var receiver = App.budgets[id][7];
       
 
-      var timer = "<p class=\"timer" + id + "\"> </p>";
-      var fromAddress = ""; //fromAddress + id
-      var toAddress = ""; //toAddress + id
+      var timer = "<p class=\"timer" + address + "\"> </p>";
 
       var header = "<div class=\"modal-header\"><h2 class=\"modal-title\">" + name + "</h2><button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button></div>"
-      var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + id + "\">" + name + "</a></h4>"+ timer + "</div>"
+      var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + address + "\">" + name + "</a></h4>"+ timer + "</div>"
 
-      var table = "<table class=\"table\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + id + "\"></tbody></table>"
+      var table = "<table class=\"table\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
       var button = "<button type=\"submit\" class=\"btn btn-primary\">Vote</button>"
-      var form = "<form id=\"form" + id + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + id + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + id + "\"></select></div>" + button + "<hr/></form>"
-      var body = "<div class=\"modal-body\"><p>" + description + "</p>" + timer + table + form + "</div>"
+      var form = "<form id=\"form" + address + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + address + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + address + "\"></select></div>" + button + "<hr/></form>"
+      var body = "<div class=\"modal-body\"><p>" + sender + '\n' + receiver + '\n' + amount + '\n' + description + "</p>" + timer + table + form + "</div>"
 
-      var budget_box = "<div class=\"col-sm-3\"><div class=\"container\"><div class=\"modal\" id=\"" + "modal" + id + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
+      var budget_box = "<div class=\"col-sm-3\"><div class=\"container\"><div class=\"modal\" id=\"" + "modal" + address + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
       display.append(budget_box);
       console.log(App.budgets);
-      App.countdown(new Date(creation_date), deadline, id);
-      App.create_table(id);
+      App.countdown(new Date(creation_date), deadline, address);
+      App.create_table(address);
     }
 
     // loader.show();
@@ -584,65 +581,74 @@ App = {
     // voted.hide();
 
     // Load account data
+    App.contracts.BudgetCreator.deployed().then(function(instance) {
+      console.log(instance.address);
+      web3.eth.getBalance(instance.address, function(err, res) {
+        if(err) {
+          console.log(err);
+        } else {
+          web3.eth.sendTransaction({
+            to: instance.address,
+            from: App.account,
+            value: web3.toWei(1, "ether")
+          }, function(err, transactionHash) {
+            if(err) {
+              console.log(err);
+            } else {
+              console.log(transactionHash);
+            }  
+          });
+        }
+        console.log(res);
+      });
+    })
 
   },
 
-  create_table: function (budget_id) {
-    var budget;
-    App.contracts.BudgetCreator.deployed().then(function (creator) {
-      return creator.budgets(Number(budget_id));
-    }).then(function (address) {
-      return web3.eth.contract(abi).at(address);
-    }).then(function (instance) {
-      budget = instance;
-      var option_results = $("#option_results" + budget_id)
-      option_results.empty()
-      var option_select = $("#option_select" + budget_id)
-      option_select.empty()
-      for (var i = 0; i < 2; i++) {
-        instance.options(i, function (error, option) {
-          if (!error) {
-            var id = Number(option[0]) + 1;
-            var name = option[1];
-            var vote_count = option[2];
-
-            var option_template = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + vote_count + "</td></tr>"
-            option_results.append(option_template);
-
-            var option_options = "<option value='" + id + "'>" + name + "</option"
-            option_select.append(option_options);
-          }
-          else { console.log(error) }
-        });
-      }
-      budget.voters(App.account, function (error, hasVoted) {
+  create_table: function (address) {
+    var budget = web3.eth.contract(abi).at(address);
+    var option_results = $("#option_results" + address);
+    option_results.empty();
+    var option_select = $("#option_select" + address);
+    option_select.empty();
+    for (var i = 0; i < 2; i++) {
+      budget.options(i, function (error, option) {
         if (!error) {
-          if (hasVoted) {$("#form" + budget_id).hide();}
+          var id = Number(option[0]) + 1;
+          var name = option[1];
+          var vote_count = option[2];
+
+          var option_template = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + vote_count + "</td></tr>"
+          option_results.append(option_template);
+
+          var option_options = "<option value='" + id + "'>" + name + "</option"
+          option_select.append(option_options);
         }
         else { console.log(error) }
       });
-    }).catch(function (error) {
-      console.warn(error);
+    }
+    budget.voters(App.account, function (error, hasVoted) {
+      if (!error) {
+        if (hasVoted) {$("#form" + address).hide();}
+      }
+      else { console.log(error) }
     });
   },
 
   castVote: function (budget_id) {
     var option_id = $("#option_select" + budget_id).val() - 1;
-    App.contracts.BudgetCreator.deployed().then(function (creator) {
-      return creator.budgets(Number(budget_id));
-    }).then(function (address) {
-      return web3.eth.contract(abi).at(address);
-    }).then(function (budget) {
-      budget.vote(option_id, function (error, result) {
-        if (!error) {
-          App.listenForNewVote(budget_id);
-        }
-        else { console.log(error) }
-      });
+    var address = App.budgets[budget_id][0];
+    var budget = web3.eth.contract(abi).at(address);
+    budget.vote(option_id, function (error, result) {
+      if (!error) {
+        App.listenForNewVote(address);
+      } else { 
+        console.log(error) 
+      }
     });
   },
 
-  listenForNewContract: function () {
+  listenForNewContract: function() {
     var creator;
     App.contracts.BudgetCreator.deployed().then(function (instance) {
       creator = instance;
@@ -657,29 +663,24 @@ App = {
     });
   },
 
-  listenForNewVote: function (budget_id) {
-    App.contracts.BudgetCreator.deployed().then(function (creator) {
-      return creator.budgets(Number(budget_id));
-    }).then(function (address) {
-      return web3.eth.contract(abi).at(address);
-    }).then(function (budget) {
-      budget.votedEvent({}, {
-        fromBlock: 'latest',
-        toBlock: 'latest'
-      }).watch(function (error, event) {
-        console.log("event triggered", event)
-        $("#modal" + budget_id).modal('hide');
-        $("#display").empty();
-        App.render();
-        $("#modal" + budget_id).modal('show');
-      });
+  listenForNewVote: function (address) {
+    var contract = web3.eth.contract(abi).at(address);
+    contract.votedEvent({}, {
+      fromBlock: 'latest',
+      toBlock: 'latest'
+    }).watch(function (error, event) {
+      console.log("event triggered", event)
+      $("#modal" + address).modal('hide');
+      App.render();
+      App.create_table(address);
+      $("#modal" + address).modal('show');
     });
   },
 
-  countdown: function (proposal_creation, deadline, id) {
+  countdown: function (proposal_creation, deadline, address) {
     var yes_vote_count;
     var no_vote_count;
-    var timer = $(".timer" + id.toString());
+    var timer = $(".timer" + address);
     var end = new Date();
     end.setDate(proposal_creation.getDate() /*+ Number(deadline)*/);
     end.setHours(proposal_creation.getHours());
@@ -701,119 +702,116 @@ App = {
         clearInterval(x);
         //App.history.push(App.budgets[]);
         //App.budgets.pull()
-        App.contracts.BudgetCreator.deployed().then(function(creator) {
-          return creator.budgets(Number(id));
-        })
-        .then(function(instance) {
+        var budget = web3.eth.contract(abi).at(address);
           for (var i = 0; i < 2; i++) {
-            instance.options(i, function (error, option) {
-              if (error) throw error;
-              var id = Number(option[0]) + 1;
-              var name = option[1];
-              var vote_count = option[2];
+            budget.options(i, function (error, option) {
+              if (error) {throw error;}
+              else {
+                var id = Number(option[0]) + 1;
+                var name = option[1];
+                var vote_count = option[2];
 
-              console.log(id);
-              console.log(name);
-              console.log(vote_count);
+                console.log(id);
+                console.log(name);
+                console.log(vote_count);
   
-              if(name === 'Yes') {
-                yes_vote_count = vote_count;
-              } else if(name === 'No') {
-                no_vote_count = vote_count;
+                if(name === 'Yes') {
+                  yes_vote_count = vote_count;
+                } else if(name === 'No') {
+                 no_vote_count = vote_count;
+                }
+                if(yes_vote_count > no_vote_count) {
+                  var budget_address;
+                  var acc; // account to transfer the $bread$ to
+                  var amount; //amount of $$$ to transfer to acc
+                  console.log('hey3');
+                  budget.data(0, function(err, res) {
+                    if(!err) {
+                      amount = res[1];
+                      acc = res[5];
+                      budget_address = res[6];
+                    } else {
+                      console.log(err);
+                    }
+                    console.log('transaction reached');
+                    // budget_address = document.querySelector('#receiver_address').value;
+                    web3.eth.sendTransaction({
+                      to: budget_address,
+                      from: acc,
+                      value: web3.toWei(`${amount}`, "ether")
+                    }, function(err, transactionHash) {
+                      if(err) throw err;
+                      console.log(transactionHash);
+                    });
+                    //var budgetInstance = web3.eth.contract(abi).at(address);
+                    console.log('hey5');
+                  });
+                 //App.send_transaction(id);
+                }
               }
             });
-          }
-        })
-        if(yes_vote_count > no_vote_count) {
-          var budget_address;
-          var acc; // account to transfer the $bread$ to
-          var amount; //amount of $$$ to transfer to acc
-          App.contracts.BudgetCreator.deployed().then(function (instance) {
-          return instance.budgets(id);
-          })
-          .then(function(budget) {
-            console.log('hey3');
-            amount = budget.data(0)[1];
-            acc = budget.data(0)[5];
-            budget_address = budget.data(0)[6];
-          })
-          .then(function(address) {
-            console.log('hey4');
-            // budget_address = document.querySelector('#receiver_address').value;
-            web3.eth.sendTransaction({
-              to: budget_address,
-              from: acc,
-              value: web3.toWei(`${amount}`, "ether")
-            }, function(err, transactionHash) {
-              if(err) throw err;
-              console.log(transactionHash);
-            });
-            //var budgetInstance = web3.eth.contract(abi).at(address);
-            console.log('hey5');
-          })
-         App.send_transaction(id);
-        }
         timer.empty();
         timer.append("the vote is over");
-        $('#form' + id).hide();
+        $('#form' + address).hide();
       }
+    }
     }, 1000)
   },
 
-  send_transaction: function (id) {
-    var budget_creator;
-    var budget_address;
-    var acc; // account to transfer the $bread$ to
-    var amount; //amount of $$$ to transfer to acc
-    //$("#button-click").on("click", function () {
-      App.contracts.BudgetCreator.deployed().then(function (instance) {
-        // console.log('hey0');
-        // amount = Number(document.querySelector('#budget_amount').value);
-        // budget_address = document.querySelector('#receiver_address').value;
-        // web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
-        //   if (err) throw err
-        //   acc = account;
-        // });
-        // //instance.add_contract(document.getElementById('budget_name').value, amount, document.getElementById('budget_description').value, new Date().toString(), document.getElementById('deadline').value, acc, budget_address);
-        // console.log(amount);
-        // budget_creator = instance;
-        // console.log('hey2');
-        // return instance.contract_count();
-        // App.listenForNewContract();
-        return instance.budgets(id);
-      })
-      .then(function(budget) {
-        console.log('hey3');
-        amount = budget.data(0)[1];
-        acc = budget.data(0)[5];
-        budget_address = budget.data(0)[6];
-      })
-      .then(function(address) {
-        console.log('hey4');
-        // budget_address = document.querySelector('#receiver_address').value;
-        web3.eth.sendTransaction({
-          to: budget_address,
-          from: acc,
-          value: web3.toWei(`${amount}`, "ether")
-        }, function(err, transactionHash) {
-          if(err) throw err;
-          console.log(transactionHash);
-        });
-        //var budgetInstance = web3.eth.contract(abi).at(address);
-        console.log('hey5');
-      })
-      // .then(function(budgetContract) {
-      //   console.log('hey6');
-      //   if(budgetContract.getBalance() < amount) {
-      //     alert('not enuf bred');
-      //     console.log(budgetContract.getBalance());
-      //   }
-      //   budgetContract.withdraw(amount);
-      // });
-    //});
-  }
-    //console.log('hey');
-    //return App.get_data();
+  // send_transaction: function (id) {
+  //   var budget_creator;
+  //   var budget_address;
+  //   var acc; // account to transfer the $bread$ to
+  //   var amount; //amount of $$$ to transfer to acc
+  //   //$("#button-click").on("click", function () {
+  //     App.contracts.BudgetCreator.deployed().then(function (instance) {
+  //       // console.log('hey0');
+  //       // amount = Number(document.querySelector('#budget_amount').value);
+  //       // budget_address = document.querySelector('#receiver_address').value;
+  //       // web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
+  //       //   if (err) throw err
+  //       //   acc = account;
+  //       // });
+  //       // //instance.add_contract(document.getElementById('budget_name').value, amount, document.getElementById('budget_description').value, new Date().toString(), document.getElementById('deadline').value, acc, budget_address);
+  //       // console.log(amount);
+  //       // budget_creator = instance;
+  //       // console.log('hey2');
+  //       // return instance.contract_count();
+  //       // App.listenForNewContract();
+  //       return instance.budgets(id);
+  //     })
+  //     .then(function(budget) {
+  //       console.log('hey3');
+  //       amount = budget.data(0)[1];
+  //       acc = budget.data(0)[5];
+  //       budget_address = budget.data(0)[6];
+  //     })
+  //     .then(function(address) {
+  //       console.log('hey4');
+  //       // budget_address = document.querySelector('#receiver_address').value;
+  //       web3.eth.sendTransaction({
+  //         to: budget_address,
+  //         from: acc,
+  //         value: web3.toWei(`${amount}`, "ether")
+  //       }, function(err, transactionHash) {
+  //         if(err) throw err;
+  //         console.log(transactionHash);
+  //       });
+  //       //var budgetInstance = web3.eth.contract(abi).at(address);
+  //       console.log('hey5');
+  //     })
+  //     // .then(function(budgetContract) {
+  //     //   console.log('hey6');
+  //     //   if(budgetContract.getBalance() < amount) {
+  //     //     alert('not enuf bred');
+  //     //     console.log(budgetContract.getBalance());
+  //     //   }
+  //     //   budgetContract.withdraw(amount);
+  //     // });
+  //   //});
+  // }
+  //   //console.log('hey');
+  //   //return App.get_data();
   
 };
 
