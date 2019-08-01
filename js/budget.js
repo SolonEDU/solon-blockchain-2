@@ -1,31 +1,36 @@
 abi = [
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "approve",
+    "constant": true,
+    "inputs": [],
+    "name": "creator",
     "outputs": [
       {
         "name": "",
-        "type": "bool"
+        "type": "address"
       }
     ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": true,
     "inputs": [],
-    "name": "totalSupply",
+    "name": "name",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "candidatesCount",
     "outputs": [
       {
         "name": "",
@@ -37,56 +42,6 @@ abi = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "name": "recipient",
-        "type": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "transferFrom",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "name": "addedValue",
-        "type": "uint256"
-      }
-    ],
-    "name": "increaseAllowance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -94,7 +49,7 @@ abi = [
         "type": "uint256"
       }
     ],
-    "name": "options",
+    "name": "candidates",
     "outputs": [
       {
         "name": "id",
@@ -105,7 +60,7 @@ abi = [
         "type": "string"
       },
       {
-        "name": "vote_count",
+        "name": "voteCount",
         "type": "uint256"
       }
     ],
@@ -115,13 +70,8 @@ abi = [
   },
   {
     "constant": true,
-    "inputs": [
-      {
-        "name": "account",
-        "type": "address"
-      }
-    ],
-    "name": "balanceOf",
+    "inputs": [],
+    "name": "counter",
     "outputs": [
       {
         "name": "",
@@ -152,160 +102,14 @@ abi = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "name": "subtractedValue",
-        "type": "uint256"
-      }
-    ],
-    "name": "decreaseAllowance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "recipient",
-        "type": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "transfer",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "name": "spender",
-        "type": "address"
-      }
-    ],
-    "name": "allowance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "data",
-    "outputs": [
-      {
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "name": "description",
-        "type": "string"
-      },
-      {
-        "name": "creation",
-        "type": "string"
-      },
-      {
-        "name": "deadline",
-        "type": "string"
-      },
-      {
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "name": "receiver",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "option_count",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "name": "_name",
         "type": "string"
       },
       {
-        "name": "_amount",
+        "name": "_daysAfter",
         "type": "uint256"
-      },
-      {
-        "name": "_description",
-        "type": "string"
-      },
-      {
-        "name": "_creation",
-        "type": "string"
-      },
-      {
-        "name": "_deadline",
-        "type": "string"
-      },
-      {
-        "name": "_sender",
-        "type": "address"
-      },
-      {
-        "name": "_receiver",
-        "type": "address"
       }
     ],
     "payable": false,
@@ -317,7 +121,7 @@ abi = [
     "inputs": [
       {
         "indexed": true,
-        "name": "_option_id",
+        "name": "_candidateId",
         "type": "uint256"
       }
     ],
@@ -325,59 +129,38 @@ abi = [
     "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "Transfer",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "Approval",
-    "type": "event"
-  },
-  {
     "constant": false,
     "inputs": [
       {
-        "name": "_option_id",
+        "name": "_candidateId",
         "type": "uint256"
       }
     ],
     "name": "vote",
     "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "countdown",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "winner",
+    "outputs": [
+      {
+        "name": "winner",
+        "type": "string"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -458,34 +241,34 @@ App = {
         console.log(budget_address);
         console.log(acc);
         //var x = setInterval(function() {
-          //if(acc != undefined) {
+        //if(acc != undefined) {
         instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, acc, budget_address);
-           // clearInterval(x)
-          //}
-       // });
+        // clearInterval(x)
+        //}
+        // });
         //console.log(amount);
-       // budget_creator = instance;
-       // console.log('hey2');
+        // budget_creator = instance;
+        // console.log('hey2');
         //return budget_creator.contract_count();
         // App.listenForNewContract();
-      // })
-      // .then(function(index) {
-      //   console.log('hey3');
-      //   return budget_creator.budgets(index);
-      // })
-     // .then(function(address) {
-      //  console.log('hey4');
+        // })
+        // .then(function(index) {
+        //   console.log('hey3');
+        //   return budget_creator.budgets(index);
+        // })
+        // .then(function(address) {
+        //  console.log('hey4');
         // budget_address = document.querySelector('#receiver_address').value;
         // web3.eth.sendTransaction({
         //   to: budget_address,
         //   from: App.address,
         //   value: web3.toWei(`${amount}`, "ether")
-      //  }, function(err, transactionHash) {
-       //   if(err) throw err;
-       //   console.log(transactionHash);
-        });
-        //var budgetInstance = web3.eth.contract(abi).at(address);
-        //console.log('hey5');
+        //  }, function(err, transactionHash) {
+        //   if(err) throw err;
+        //   console.log(transactionHash);
+      });
+      //var budgetInstance = web3.eth.contract(abi).at(address);
+      //console.log('hey5');
       //});
       // .then(function(budgetContract) {
       //   console.log('hey6');
@@ -495,8 +278,8 @@ App = {
       //   }
       //   budgetContract.withdraw(amount);
       // });
-     //);
-    console.log('hey');
+      //);
+      console.log('hey');
     });
     return App.get_data();
   },
@@ -511,17 +294,17 @@ App = {
       App.budget_count = count;
       for (var i = 0; i < count; i++) {
         var budget_address;
-        budget_creator.budgets(i).then(function(address) {
+        budget_creator.budgets(i).then(function (address) {
           budget_address = address;
           return web3.eth.contract(abi).at(address);
         }).then(function (budgetInstance) {
           var data = []
           data.push(budget_address)
           console.log('gottem1');
-          budgetInstance.data(0, function(err, result) {
+          budgetInstance.data(0, function (err, result) {
             console.log('gottem2');
             if (!err) {
-              for(var i = 0; i < 7; i++) {
+              for (var i = 0; i < 7; i++) {
                 data.push(result[i]);
               }
               App.budgets.push(data);
@@ -557,12 +340,12 @@ App = {
       var deadline = App.budgets[id][5];
       var sender = App.budgets[id][6];
       var receiver = App.budgets[id][7];
-      
+
 
       var timer = "<p class=\"timer" + address + "\"> </p>";
 
       var header = "<div class=\"modal-header\"><h2 class=\"modal-title\">" + name + "</h2><button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button></div>"
-      var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + address + "\">" + name + "</a></h4>"+ timer + "</div>"
+      var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + address + "\">" + name + "</a></h4>" + timer + "</div>"
 
       var table = "<table class=\"table\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
       var button = "<button type=\"submit\" class=\"btn btn-primary\">Vote</button>"
@@ -581,22 +364,24 @@ App = {
     // voted.hide();
 
     // Load account data
-    App.contracts.BudgetCreator.deployed().then(function(instance) {
+    App.contracts.BudgetCreator.deployed().then(function (instance) {
       console.log(instance.address);
-      web3.eth.getBalance(instance.address, function(err, res) {
-        if(err) {
+      console.log(App.account)
+      web3.eth.getBalance(instance.address, function (err, res) {
+        if (err) {
           console.log(err);
         } else {
           web3.eth.sendTransaction({
             to: instance.address,
             from: App.account,
-            value: web3.toWei(1, "ether")
-          }, function(err, transactionHash) {
-            if(err) {
+            value: web3.toWei(1, "ether"),
+            gas: 4700000
+          }, function (err, transactionHash) {
+            if (err) {
               console.log(err);
             } else {
               console.log(transactionHash);
-            }  
+            }
           });
         }
         console.log(res);
@@ -629,7 +414,7 @@ App = {
     }
     budget.voters(App.account, function (error, hasVoted) {
       if (!error) {
-        if (hasVoted) {$("#form" + address).hide();}
+        if (hasVoted) { $("#form" + address).hide(); }
       }
       else { console.log(error) }
     });
@@ -642,13 +427,13 @@ App = {
     budget.vote(option_id, function (error, result) {
       if (!error) {
         App.listenForNewVote(address);
-      } else { 
-        console.log(error) 
+      } else {
+        console.log(error)
       }
     });
   },
 
-  listenForNewContract: function() {
+  listenForNewContract: function () {
     var creator;
     App.contracts.BudgetCreator.deployed().then(function (instance) {
       creator = instance;
@@ -703,58 +488,58 @@ App = {
         //App.history.push(App.budgets[]);
         //App.budgets.pull()
         var budget = web3.eth.contract(abi).at(address);
-          for (var i = 0; i < 2; i++) {
-            budget.options(i, function (error, option) {
-              if (error) {throw error;}
-              else {
-                var id = Number(option[0]) + 1;
-                var name = option[1];
-                var vote_count = option[2];
+        for (var i = 0; i < 2; i++) {
+          budget.options(i, function (error, option) {
+            if (error) { throw error; }
+            else {
+              var id = Number(option[0]) + 1;
+              var name = option[1];
+              var vote_count = option[2];
 
-                console.log(id);
-                console.log(name);
-                console.log(vote_count);
-  
-                if(name === 'Yes') {
-                  yes_vote_count = vote_count;
-                } else if(name === 'No') {
-                 no_vote_count = vote_count;
-                }
-                if(yes_vote_count > no_vote_count) {
-                  var budget_address;
-                  var acc; // account to transfer the $bread$ to
-                  var amount; //amount of $$$ to transfer to acc
-                  console.log('hey3');
-                  budget.data(0, function(err, res) {
-                    if(!err) {
-                      amount = res[1];
-                      acc = res[5];
-                      budget_address = res[6];
-                    } else {
-                      console.log(err);
-                    }
-                    console.log('transaction reached');
-                    // budget_address = document.querySelector('#receiver_address').value;
-                    web3.eth.sendTransaction({
-                      to: budget_address,
-                      from: acc,
-                      value: web3.toWei(`${amount}`, "ether")
-                    }, function(err, transactionHash) {
-                      if(err) throw err;
-                      console.log(transactionHash);
-                    });
-                    //var budgetInstance = web3.eth.contract(abi).at(address);
-                    console.log('hey5');
-                  });
-                 //App.send_transaction(id);
-                }
+              console.log(id);
+              console.log(name);
+              console.log(vote_count);
+
+              if (name === 'Yes') {
+                yes_vote_count = vote_count;
+              } else if (name === 'No') {
+                no_vote_count = vote_count;
               }
-            });
-        timer.empty();
-        timer.append("the vote is over");
-        $('#form' + address).hide();
+              if (yes_vote_count > no_vote_count) {
+                var budget_address;
+                var acc; // account to transfer the $bread$ to
+                var amount; //amount of $$$ to transfer to acc
+                console.log('hey3');
+                budget.data(0, function (err, res) {
+                  if (!err) {
+                    amount = res[1];
+                    acc = res[5];
+                    budget_address = res[6];
+                  } else {
+                    console.log(err);
+                  }
+                  console.log('transaction reached');
+                  // budget_address = document.querySelector('#receiver_address').value;
+                  web3.eth.sendTransaction({
+                    to: budget_address,
+                    from: acc,
+                    value: web3.toWei(`${amount}`, "ether")
+                  }, function (err, transactionHash) {
+                    if (err) throw err;
+                    console.log(transactionHash);
+                  });
+                  //var budgetInstance = web3.eth.contract(abi).at(address);
+                  console.log('hey5');
+                });
+                //App.send_transaction(id);
+              }
+            }
+          });
+          timer.empty();
+          timer.append("the vote is over");
+          $('#form' + address).hide();
+        }
       }
-    }
     }, 1000)
   },
 
@@ -812,7 +597,7 @@ App = {
   // }
   //   //console.log('hey');
   //   //return App.get_data();
-  
+
 };
 
 $(function () {
