@@ -475,9 +475,6 @@ App = {
           }
         });
       });
-      App.contracts.BudgetCreator.deployed().then(function (instance) {
-        instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, receiver_address);
-      });
     });
     return App.get_data();
   },
