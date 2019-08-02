@@ -4,9 +4,8 @@ import "./Budget.sol";
 
 contract BudgetCreator{
     event NewContract(address indexed _budget_id);
-    event withdrawal(address sender, uint amount);
-
-    //address public withdrawer; //basically owner of an instance of this contract
+    event Withdraw(address sender, uint amount);
+    event Deposit(uint amount);
 
     mapping(uint => Budget) public budgets;
     uint public contract_count;
@@ -21,7 +20,6 @@ contract BudgetCreator{
         budgets[contract_count] = new Budget(_name, _amount, _description, _creation, _deadline, _receiver);
         emit NewContract(address(budgets[contract_count]));
         contract_count++;
-        //withdrawer = msg.sender;
     }
 
     function getBalance() public view returns (uint) {
@@ -30,11 +28,13 @@ contract BudgetCreator{
 
     function deposit(uint amount) public payable {
         require(msg.value == amount, "unequal amounts");
+        emit Deposit(amount);
     }
 
     function withdraw(address payable sender, uint amount) public {
         require(amount <= address(this).balance, "request is too large");
         sender.transfer(amount);
+        emit Withdraw(sender, amount);
     }
 
     function() external payable { }

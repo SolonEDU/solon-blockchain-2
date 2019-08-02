@@ -1,10 +1,9 @@
 pragma solidity ^0.5.0;
 
-import "./ERC20.sol";
+contract Budget{
 
-contract Budget is ERC20 {
+    event votedEvent(uint indexed _option_id);
 
-    //address public owner;
     struct Data {
         string name;
         uint amount;
@@ -14,19 +13,6 @@ contract Budget is ERC20 {
         bool has_sent;
         address receiver;
     }
-
-    constructor(string memory _name,
-                uint _amount,
-                string memory _description,
-                string memory _creation,
-                string memory _deadline,
-                address _receiver) public { //withdrawer --> sender
-        add_option("Yes");
-        add_option("No");
-        data[0] = Data(_name, _amount, _description, _creation, _deadline, false, _receiver);
-    }
-
-    event votedEvent(uint indexed _option_id);
 
     struct Option{
         uint id;
@@ -39,10 +25,18 @@ contract Budget is ERC20 {
     mapping(uint => Data) public data;
     uint public option_count;
 
-    // modifier isWithdrawer() {
-    //     require(msg.sender == withdrawer, "stop it get some help"); //owner is basically the withdrawer
-    //     _;
-    // }
+    constructor(string memory _name,
+                uint _amount,
+                string memory _description,
+                string memory _creation,
+                string memory _deadline,
+                address _receiver) public {
+        add_option("Yes");
+        add_option("No");
+        data[0] = Data(_name, _amount, _description, _creation, _deadline, false, _receiver);
+    }
+
+    function sent_yet() public { data[0].has_sent = true; }
 
     function add_option(string memory _name) private {
         options[option_count] = Option(option_count, _name, 0);
@@ -57,13 +51,4 @@ contract Budget is ERC20 {
         emit votedEvent(_option_id);
     }
 
-    function sent_yet() public {
-      data[0].has_sent = true;
-    }
-
-    // function withdraw(uint amt) public isWithdrawer {
-    //     address payable sender;
-    //     sender = 0x46cd19a25Bf0878bB702AB6cAbA837522f59adeA;
-    //     sender.transfer(amt);
-    // }
 }
