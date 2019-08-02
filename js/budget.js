@@ -459,7 +459,7 @@ App = {
     $("#button-click").on("click", function () {
       amount = Number(document.querySelector('#budget_amount').value);
       receiver_address = document.querySelector('#receiver_address').value;
-      App.contracts.BudgetCreator.deployed().then(function(instance) { //get balance
+      App.contracts.BudgetCreator.deployed().then(function (instance) { //get balance
         App.creator_address = instance.address;
         web3.eth.getBalance(instance.address, function (err, res) {
           if (err) { console.log(err); }
@@ -467,10 +467,10 @@ App = {
             balance = res;
             console.log(Number(balance));
             console.log(Number(amount * 1e18));
-            console.log(Number(amount*1e18) > Number(balance));
-            if(amount*1e18 > balance) {
+            console.log(Number(amount * 1e18) > Number(balance));
+            if (amount * 1e18 > balance) {
               console.log('error reached');
-              errors.innerHTML = "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Change a few things up and try submitting again.</div>";
+              errors.innerHTML = "<div class=\"mx-4 my-3\"><div class=\"text-center alert alert-warning\" role=\"alert\">Input amount is greater than the current balance</div></div>";
             }
           }
         });
