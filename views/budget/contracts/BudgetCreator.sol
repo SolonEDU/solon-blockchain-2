@@ -2,8 +2,9 @@ pragma solidity ^0.5.0;
 
 import "./Budget.sol";
 
-contract BudgetCreator {
+contract BudgetCreator{
     event NewContract(address indexed _budget_id);
+    event withdrawal(address sender, uint amount);
 
     //address public withdrawer; //basically owner of an instance of this contract
 
@@ -23,20 +24,18 @@ contract BudgetCreator {
         //withdrawer = msg.sender;
     }
 
-    function () external payable {
-        //0xaD99326B61c688472a55055C4C78B2cFB70393D2.transfer(msg.value);
-    }
-
     function getBalance() public view returns (uint) {
         return address(this).balance;
     }
 
     function deposit(uint amount) public payable {
-        require(msg.value == amount, "");
+        require(msg.value == amount, "unequal amounts");
     }
 
-    function transfer(address payable to, uint256 amount) public {
-        require(msg.sender == to, "send to receiver");
-        to.transfer(amount);
+    function withdraw(address payable sender, uint amount) public {
+        require(amount <= address(this).balance, "request is too large");
+        sender.transfer(amount);
     }
+
+    function() external payable { }
 }

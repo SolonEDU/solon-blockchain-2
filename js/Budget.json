@@ -424,7 +424,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 157,
-        "sourceUnit": 660,
+        "sourceUnit": 668,
         "src": "27:21:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -438,10 +438,10 @@
               "id": 3,
               "name": "ERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 659,
+              "referencedDeclaration": 667,
               "src": "71:5:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20_$659",
+                "typeIdentifier": "t_contract$_ERC20_$667",
                 "typeString": "contract ERC20"
               }
             },
@@ -451,8 +451,8 @@
           }
         ],
         "contractDependencies": [
-          659,
-          728
+          667,
+          736
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -460,8 +460,8 @@
         "id": 156,
         "linearizedBaseContracts": [
           156,
-          659,
-          728
+          667,
+          736
         ],
         "name": "Budget",
         "nodeType": "ContractDefinition",
@@ -1773,7 +1773,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 933,
+                              "referencedDeclaration": 941,
                               "src": "1442:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -1844,10 +1844,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        936,
-                        937
+                        944,
+                        945
                       ],
-                      "referencedDeclaration": 937,
+                      "referencedDeclaration": 945,
                       "src": "1426:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2024,10 +2024,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        936,
-                        937
+                        944,
+                        945
                       ],
-                      "referencedDeclaration": 937,
+                      "referencedDeclaration": 945,
                       "src": "1487:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2084,7 +2084,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 933,
+                          "referencedDeclaration": 941,
                           "src": "1576:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2497,7 +2497,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 157,
-        "sourceUnit": 660,
+        "sourceUnit": 668,
         "src": "27:21:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2511,10 +2511,10 @@
               "id": 3,
               "name": "ERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 659,
+              "referencedDeclaration": 667,
               "src": "71:5:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20_$659",
+                "typeIdentifier": "t_contract$_ERC20_$667",
                 "typeString": "contract ERC20"
               }
             },
@@ -2524,8 +2524,8 @@
           }
         ],
         "contractDependencies": [
-          659,
-          728
+          667,
+          736
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -2533,8 +2533,8 @@
         "id": 156,
         "linearizedBaseContracts": [
           156,
-          659,
-          728
+          667,
+          736
         ],
         "name": "Budget",
         "nodeType": "ContractDefinition",
@@ -3846,7 +3846,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 933,
+                              "referencedDeclaration": 941,
                               "src": "1442:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -3917,10 +3917,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        936,
-                        937
+                        944,
+                        945
                       ],
-                      "referencedDeclaration": 937,
+                      "referencedDeclaration": 945,
                       "src": "1426:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4097,10 +4097,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        936,
-                        937
+                        944,
+                        945
                       ],
-                      "referencedDeclaration": 937,
+                      "referencedDeclaration": 945,
                       "src": "1487:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4157,7 +4157,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 933,
+                          "referencedDeclaration": 941,
                           "src": "1576:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4556,7 +4556,7 @@
     }
   },
   "schemaVersion": "3.0.11",
-  "updatedAt": "2019-08-02T02:05:17.841Z",
+  "updatedAt": "2019-08-02T07:28:58.385Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {
