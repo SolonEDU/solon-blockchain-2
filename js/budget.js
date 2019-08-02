@@ -471,6 +471,8 @@ App = {
             if (amount * 1e18 > balance) {
               console.log('error reached');
               errors.innerHTML = "<div class=\"mx-4 my-3\"><div class=\"text-center alert alert-warning\" role=\"alert\">Input amount is greater than the current balance</div></div>";
+            } else {
+              instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, receiver_address);
             }
           }
         });
