@@ -32,6 +32,6 @@ contract BudgetCreator {
     }
 
     function deposit(uint amount) public payable {
-        require(msg.value == amount);
+        require(msg.value == amount, "");
     }
 }
