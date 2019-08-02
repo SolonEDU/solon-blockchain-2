@@ -536,7 +536,7 @@ App = {
 
       var timer = "<p class=\"timer" + address + "\"> </p>";
 
-      var header = "<div class=\"modal-header\"><h2 class=\"modal-title\">" + name + "</h2><button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button></div>"
+      var header = "<div class=\"modal-header\"><h2 align = \"center\" class=\"modal-title w-100\">" + name + "</h2></div>"
       var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + address + "\">" + name + "</a></h4>" + timer + "</div>"
 
       var table = "<table class=\"table\"><thead><tr><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
