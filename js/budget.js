@@ -519,9 +519,11 @@ App = {
       });
     });
   },
-
-  render: function () {
-    var display = $("#display");
+  
+  render: function () {    
+    App.display_history();
+    App.display_ongoing();
+    $("#past_display").hide();
     for (var id = 0; id < App.budgets.length; id++) {
       var address = App.budgets[id][0];
       var name = App.budgets[id][1];
@@ -542,9 +544,9 @@ App = {
       var form = "<form id=\"form" + address + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + address + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + address + "\"></select></div>" + button + "<hr/></form>"
       var body = "<div class=\"modal-body\"><p>" + "Recipient's Address: " + receiver + "<br> Requested Amount: " + amount + "<br> Description: " + description + "</p> Time Left: " + timer + table + form + "</div>"
 
-      var budget_box = "<div class=\"col-sm-3\"><div class=\"container\"><div class=\"modal\" id=\"" + "modal" + address + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
-      display.append(budget_box);
-      App.countdown(new Date(creation_date), deadline, id);
+      var budget_box = "<div id=\"box" + address + "\" class=\"col-sm-4 text-center\"><div class=\"container\"><div class=\"modal text-center\" id=\"" + "modal" + address + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
+      $("#ongoing_display").append(budget_box);
+      App.countdown(new Date(creation_date), deadline, id, budget_box);
       App.create_table(address);
     }
     App.deposit_money();
@@ -602,6 +604,26 @@ App = {
     });
   },
 
+  display_history: function () {
+    $("#history").on("click", function () {
+      $("#ongoing_display").hide();
+      $("#past_display").show();
+      $(".fixed-bottom").hide();
+      document.getElementById("history").className = "btn btn-primary mx-2";
+      document.getElementById("ongoing").className = "btn btn-outline-primary mx-2";
+    });
+  },
+
+  display_ongoing: function () {
+    $("#ongoing").on("click", function () {
+      $("#past_display").hide();
+      $("#ongoing_display").show();
+      $(".fixed-bottom").show();
+      document.getElementById("ongoing").className = "btn btn-primary mx-2";
+      document.getElementById("history").className = "btn btn-outline-primary mx-2";
+    });
+  },
+
   listenForNewContract: function () {
     App.contracts.BudgetCreator.deployed().then(function (instance) {
       instance.NewContract({}, {
@@ -649,7 +671,7 @@ App = {
     });
   },
 
-  countdown: function (proposal_creation, deadline, id) {
+  countdown: function (proposal_creation, deadline, id, budget_box) {
     var address = App.budgets[id][0];
     var has_sent = App.budgets[id][6];
     console.log(has_sent);
@@ -696,8 +718,10 @@ App = {
               }
             }
           });
-          timer.empty();
-          timer.append("the vote is over");
+          $('#box' + address).remove();
+          $('#past_display').append(budget_box);
+          $(".timer" + address).empty();
+          App.create_table(address);
           $('#form' + address).hide();
         }
       }
