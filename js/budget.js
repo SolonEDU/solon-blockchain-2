@@ -431,7 +431,6 @@ App = {
       if (err === null) {
         App.account = account;
         $("#accountAddress").html(account);
-        $("#accountAddress").html(account);
         const publicaddress = document.getElementById("publicaddress").innerText.toLowerCase();
         if (account != publicaddress) {
           document.getElementById("content").className = "d-none";
