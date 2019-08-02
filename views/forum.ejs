@@ -58,9 +58,9 @@
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100">Make a New Post</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body mx-3">
         <form action="forum/addpost" class="md-form mb-3" method="POST">
@@ -99,10 +99,5 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-<script>
-  $('.modal').on('hidden.bs.modal', function () {
-    $(this).find('form')[0].reset();
-  });
-</script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
