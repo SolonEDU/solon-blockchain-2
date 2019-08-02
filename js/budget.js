@@ -467,16 +467,15 @@ App = {
             balance = res;
             console.log(Number(balance));
             console.log(Number(amount * 1e18));
-            console.log(Number(amount*1e18) > Number(balance));
-            if(amount*1e18 > balance) {
+            console.log(Number(amount * 1e18) > Number(balance));
+            if(amount * 1e18 > balance) {
               console.log('error reached');
               errors.innerHTML = "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Change a few things up and try submitting again.</div>";
+            } else {
+              instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, receiver_address);
             }
           }
         });
-      });
-      App.contracts.BudgetCreator.deployed().then(function (instance) {
-        instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, receiver_address);
       });
     });
     return App.get_data();
