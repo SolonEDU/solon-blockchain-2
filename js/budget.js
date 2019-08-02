@@ -454,10 +454,28 @@ App = {
   create_contract: function () {
     var receiver_address;
     var amount;
+    var balance;
+    var errors = document.querySelector('.errors');
     $("#button-click").on("click", function () {
+      amount = Number(document.querySelector('#budget_amount').value);
+      receiver_address = document.querySelector('#receiver_address').value;
+      App.contracts.BudgetCreator.deployed().then(function(instance) { //get balance
+        App.creator_address = instance.address;
+        web3.eth.getBalance(instance.address, function (err, res) {
+          if (err) { console.log(err); }
+          else {
+            balance = res;
+            console.log(Number(balance));
+            console.log(Number(amount * 1e18));
+            console.log(Number(amount*1e18) > Number(balance));
+            if(amount*1e18 > balance) {
+              console.log('error reached');
+              errors.innerHTML = "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Change a few things up and try submitting again.</div>";
+            }
+          }
+        });
+      });
       App.contracts.BudgetCreator.deployed().then(function (instance) {
-        amount = Number(document.querySelector('#budget_amount').value);
-        receiver_address = document.querySelector('#receiver_address').value;
         instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, receiver_address);
       });
     });
