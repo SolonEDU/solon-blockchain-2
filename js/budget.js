@@ -440,7 +440,7 @@ App = {
     });
   },
 
-  listenForNewDeposit: function() {
+  listenForNewDeposit: function () {
     App.contracts.BudgetCreator.deployed().then(function (instance) {
       instance.Deposit({}, {
         fromBlock: "latest",
@@ -460,9 +460,9 @@ App = {
     var timer = $(".timer" + address);
     var end = new Date();
 
-    end.setDate(proposal_creation.getDate() /*+ Number(deadline)*/);
+    end.setDate(proposal_creation.getDate() + Number(deadline));
     end.setHours(proposal_creation.getHours());
-    end.setMinutes(proposal_creation.getMinutes() + Number(deadline));
+    end.setMinutes(proposal_creation.getMinutes() /* + Number(deadline) */);
     end.setSeconds(proposal_creation.getSeconds());
 
     var x = setInterval(function () {
