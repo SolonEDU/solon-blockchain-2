@@ -32,7 +32,7 @@ router.get('/policy', ensureAuthenticated, (req, res) =>
   })
 );
 
-// Address Error
+// Policy Address Error
 router.get('/policy/addresserror', ensureAuthenticated, (req, res) =>
   res.render('./policy/src/addresserror', {
     publicaddress: req.user.publicaddress
@@ -50,13 +50,9 @@ router.get('/budget', ensureAuthenticated, (req, res) =>
   })
 );
 
-// Budget History
-router.get('/budgethistory', ensureAuthenticated, (req, res) =>
-  res.render('forum', {
-    type: req.user.type,
-    name: req.user.name,
-    osis: req.user.osis,
-    email: req.user.email,
+// Budget Address Error
+router.get('/budget/addresserror', ensureAuthenticated, (req, res) =>
+  res.render('./budget/src/addresserror', {
     publicaddress: req.user.publicaddress
   })
 );

@@ -430,7 +430,13 @@ App = {
     web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
       if (err === null) {
         App.account = account;
-        $("#accountAddress").html("Your Account: " + account);
+        $("#accountAddress").html(account);
+        const publicaddress = document.getElementById("publicaddress").innerText.toLowerCase();
+        if (account != publicaddress) {
+          document.getElementById("content").className = "d-none";
+          // window.alert(`Invalid public address detected. Please change your Metamask account to the one used during registration for Solon and reload the page. \nThe public address of that account should be: ${publicaddress}`);
+          window.location.href = "/budget/addresserror";
+        };
       }
     });
     $.getJSON("/js/BudgetCreator.json", function (budget) {
