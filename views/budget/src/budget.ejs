@@ -33,7 +33,10 @@
 
 <div id="content">
   <div class="container py-5 mt-5">
-    <h1 class="text-center display-4 pb-3">Budget</h1>
+    <h1 class="text-center display-4 pb-2">Budget</h1>
+    <div class="text-center">
+      <p class="h5 pb-2" id="contract_balance"></p>
+    </div>
     <ul class="nav nav-pills justify-content-center">
       <li class="nav-item">
         <a class="nav-link active" href="budget">Ongoing</a>
@@ -45,7 +48,7 @@
     <br>
     <h5 class="text-center">Ongoing Proposals</h5>
     <p class="text-center">Click on any proposal to view details or vote.</p>
-    <p class="text-center" id="accountAddress"></p>
+    <p class="text-center" id="accountAddress" style="display:none"></p>
     <p id="publicaddress" style="display:none"><%= publicaddress %></p>
 
     <br>
@@ -154,12 +157,6 @@
       </div>
     </div>
     <!--End of Deposit Button-->
-
-    <div>
-      <div class="float-middle">
-        <p class="lead" id="contract_balance"></p>
-      </div>
-    </div>
 
     <!--New Policy Button-->
     <div>
