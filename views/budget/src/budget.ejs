@@ -34,15 +34,12 @@
 <div id="content">
   <div class="container py-5 mt-5">
     <h1 class="text-center display-4 pb-2">Budget</h1>
-    <div class="text-center">
-      <p class="h5 pb-2" id="contract_balance"></p>
-    </div>
     <ul class="nav nav-pills justify-content-center">
       <li class="nav-item">
-        <a class="nav-link active" href="budget">Ongoing</a>
+        <button class="btn btn-primary mx-2" id="ongoing">Ongoing</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="budgethistory">History</a>
+        <button class="btn btn-outline-primary mx-2" id="history">History</button>
       </li>
     </ul>
     <br>
@@ -53,9 +50,11 @@
 
     <br>
 
-    <div class="row" id="display">
+    <div class="row" id="ongoing_display">
     </div>
-    <br>
+    
+    <div class="row" id="past_display">
+    </div>
 
   </div>
 
@@ -84,11 +83,7 @@
   </div>
   <!--End of Deposit Form-->
 
-<<<<<<< HEAD
-  <!--New Policy Form-->
-=======
   <!--New Budget Form-->
->>>>>>> 7767c249dbaa3d2dea9f5d928b1a7cac6eac39f0
   <div class="modal fade" id="newbudget" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
