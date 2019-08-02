@@ -427,7 +427,7 @@ App = {
   },
 
   initContract: function () {
-    web3.eth.getCoinbase(function (err, account) { //turn off privacy mode for this to work with MetaMask
+    web3.eth.getCoinbase(function (err, account) { 
       if (err === null) {
         App.account = account;
         $("#accountAddress").html(account);
@@ -452,28 +452,24 @@ App = {
   },
 
   create_contract: function () {
-    var receiver_address;
-    var amount;
-    var balance;
     var errors = document.querySelector('.errors');
     $("#button-click").on("click", function () {
-      amount = Number(document.querySelector('#budget_amount').value);
-      receiver_address = document.querySelector('#receiver_address').value;
-      App.contracts.BudgetCreator.deployed().then(function (instance) { //get balance
+
+      var name = document.querySelector('#budget_name').value;
+      var amount = Number(document.querySelector('#budget_amount').value);
+      var receiver_address = document.querySelector('#receiver_address').value;
+      var description = document.querySelector('#budget_description').value;
+      var date = new Date().toString();
+      var deadline = document.querySelector('#deadline').value;
+
+      App.contracts.BudgetCreator.deployed().then(function (instance) { 
         App.creator_address = instance.address;
-        web3.eth.getBalance(instance.address, function (err, res) {
+        web3.eth.getBalance(instance.address, function (err, balance) {
           if (err) { console.log(err); }
           else {
-            balance = res;
-            console.log(Number(balance));
-            console.log(Number(amount * 1e18));
-            console.log(Number(amount * 1e18) > Number(balance));
             if (amount * 1e18 > balance) {
-              console.log('error reached');
               errors.innerHTML = "<div class=\"mx-2 \"><div class=\"text-center alert alert-warning\" role=\"alert\">Input amount is greater than the current balance</div></div>";
-            } else {
-              instance.add_contract(document.querySelector('#budget_name').value, amount, document.querySelector('#budget_description').value, new Date().toString(), document.querySelector('#deadline').value, receiver_address);
-            }
+            } else {instance.add_contract(name, amount, description, date, deadline, receiver_address);}
           }
         });
       });
@@ -482,7 +478,6 @@ App = {
   },
 
   get_data: function () {
-    App.deposit_money();
     var budget_creator;
     App.contracts.BudgetCreator.deployed().then(function (instance) {
       budget_creator = instance;
@@ -499,9 +494,9 @@ App = {
           data.push(receiver_address)
           budgetInstance.data(0, function (err, result) {
             if (!err) {
-              for (var i = 0; i < 7; i++) {data.push(result[i]);}
+              for (var i = 0; i < 7; i++) {data.push(result[i])}
               App.budgets.push(data);
-            } else {console.log(err);}
+            } else {console.log(err)}
           })
         });
       }
@@ -515,6 +510,16 @@ App = {
     });
   },
 
+  get_balance: function () {
+    App.contracts.BudgetCreator.deployed().then(function (instance) {
+      App.creator_address = instance.address;
+      web3.eth.getBalance(instance.address, function (err, res) {
+        if (err) { console.log(err); }
+        else {document.querySelector('#contract_balance').innerHTML = `Current Balance: ${res / 1e18} ETH`;}
+      });
+    });
+  },
+  
   render: function () {    
     App.display_history();
     App.display_ongoing();
@@ -531,39 +536,20 @@ App = {
 
       var timer = "<p class=\"timer" + address + "\"> </p>";
 
-      var header = "<div class=\"modal-header\"><h2 class=\"modal-title\">" + name + "</h2><button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button></div>"
+      var header = "<div class=\"modal-header\"><h2 align = \"center\" class=\"modal-title w-100\">" + name + "</h2></div>"
       var outside = "<div class=\"p-3 mb-2 bg-light text-dark\"><h4><a href=\"#\" data-toggle=\"modal\" data-target=\"#" + "modal" + address + "\">" + name + "</a></h4>" + timer + "</div>"
 
-      var table = "<table class=\"table\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
+      var table = "<table class=\"table\"><thead><tr><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
       var button = "<button type=\"submit\" class=\"btn btn-primary\">Vote</button>"
       var form = "<form id=\"form" + address + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + address + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + address + "\"></select></div>" + button + "<hr/></form>"
-      var body = "<div class=\"modal-body\"><p>" + has_sent + '\n' + receiver + '\n' + amount + '\n' + description + "</p>" + timer + table + form + "</div>"
+      var body = "<div class=\"modal-body\"><p>" + "Recipient's Address: " + receiver + "<br> Requested Amount: " + amount + "<br> Description: " + description + "</p> Time Left: " + timer + table + form + "</div>"
 
       var budget_box = "<div id=\"box" + address + "\" class=\"col-sm-4 text-center\"><div class=\"container\"><div class=\"modal text-center\" id=\"" + "modal" + address + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
       $("#ongoing_display").append(budget_box);
       App.countdown(new Date(creation_date), deadline, id, budget_box);
       App.create_table(address);
     }
-  },
-
-  get_balance: function () {
-    App.contracts.BudgetCreator.deployed().then(function (instance) {
-      App.creator_address = instance.address;
-      web3.eth.getBalance(instance.address, function (err, res) {
-        if (err) { console.log(err); }
-        else {document.querySelector('#contract_balance').innerHTML = `Current Balance: ${res / 1e18} ETH`;}
-      });
-    });
-  },
-
-  deposit_money: function () {
-    App.get_balance();
-    $("#deposit-click").on("click", function () {
-      App.contracts.BudgetCreator.deployed().then(function (instance) {
-        instance.deposit(web3.toWei(document.querySelector("#deposit_amount").value),
-          { from: App.account, value: web3.toWei(document.querySelector("#deposit_amount").value) });
-      });
-    });
+    App.deposit_money();
   },
 
   create_table: function (address) {
@@ -579,7 +565,7 @@ App = {
           var name = option[1];
           var vote_count = option[2];
 
-          var option_template = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + vote_count + "</td></tr>"
+          var option_template = "<tr><th>" + name + "</th><td>" + vote_count + "</td></tr>"
           option_results.append(option_template);
 
           var option_options = "<option value='" + id + "'>" + name + "</option"
@@ -596,9 +582,20 @@ App = {
     });
   },
 
+  deposit_money: function () {
+    App.get_balance();
+    $("#deposit-click").on("click", function () {
+      App.contracts.BudgetCreator.deployed().then(function (instance) {
+        instance.deposit(web3.toWei(document.querySelector("#deposit_amount").value),
+          { from: App.account, value: web3.toWei(document.querySelector("#deposit_amount").value) });
+        App.listenForNewDeposit();
+      });
+    });
+  },
+
   castVote: function (budget_id) {
-    var option_id = $("#option_select" + budget_id).val() - 1;
     var address = App.budgets[budget_id][0];
+    var option_id = $("#option_select" + address).val() - 1;
     var budget = web3.eth.contract(abi).at(address);
     budget.vote(option_id, function (error, result) {
       if (!error) {
@@ -628,17 +625,14 @@ App = {
   },
 
   listenForNewContract: function () {
-    var creator;
     App.contracts.BudgetCreator.deployed().then(function (instance) {
-      creator = instance;
       instance.NewContract({}, {
         fromBlock: 0,
         toBlock: 'latest'
       }).watch(function (error, event) {
-        console.log("event triggered", event)
+        console.log("new contract", event)
         $("#newbudget").modal('hide');
       });
-      //console.log(creator.last_sender.balance);
     });
   },
 
@@ -648,10 +642,32 @@ App = {
       fromBlock: 'latest',
       toBlock: 'latest'
     }).watch(function (error, event) {
-      console.log("event triggered", event)
+      console.log("new vote", event)
       $("#modal" + address).modal('hide');
       App.create_table(address);
       $("#modal" + address).modal('show');
+    });
+  },
+
+  listenForNewWithdraw: function(address) {
+    App.contracts.BudgetCreator.deployed().then(function(instance) {
+      instance.Withdraw({}, {
+        fromBlock: 0,
+        toBlock: 'latest'
+      }).watch(function(error,event) {
+        console.log("withdraw", event)
+      });
+    });
+  },
+
+  listenForNewDeposit: function(address) {
+    App.contracts.BudgetCreator.deployed().then(function(instance) {
+      instance.Deposit({}, {
+        fromBlock: 0,
+        toBlock: "latest"
+      }).watch(function(error,event){
+        console.log("deposit", event)
+      });
     });
   },
 
@@ -659,8 +675,7 @@ App = {
     var address = App.budgets[id][0];
     var has_sent = App.budgets[id][6];
     console.log(has_sent);
-    var yes_vote_count;
-    var no_vote_count;
+
     var timer = $(".timer" + address);
     var end = new Date();
     end.setDate(proposal_creation.getDate() /*+ Number(deadline)*/);
@@ -681,23 +696,23 @@ App = {
 
       if (distance < 0) {
         clearInterval(x);
+        var yes_count;
+        var no_count;
         var budget = web3.eth.contract(abi).at(address);
         for (var i = 0; i < 2; i++) {
           budget.options(i, function (error, option) {
             if (error) { throw error; }
             else {
-              var name = option[1];
-              var vote_count = option[2];
+              if (option[1] === 'Yes') { yes_vote_count = option[2]; }
+              else if (option[1] === 'No') { no_vote_count = option[2]; }
 
-              if (name === 'Yes') { yes_vote_count = vote_count; }
-              else if (name === 'No') { no_vote_count = vote_count; }
-
-              if (yes_vote_count > no_vote_count && !has_sent) {
+              if (yes_count > no_count && !has_sent) {
                 var receiver_address = App.budgets[id][7];
                 var amount = App.budgets[id][2];
                 if (App.account == receiver_address) {
                   App.contracts.BudgetCreator.deployed().then(function (creator) {
                     creator.withdraw(receiver_address, web3.toWei(`${amount}`, "ether"))
+                    App.listenForNewWithdraw();
                   });
                 }
               }
