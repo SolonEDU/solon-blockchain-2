@@ -304,7 +304,7 @@ App = {
           var option_template = "<tr><th>" + name + "</th><td>" + vote_count + "</td></tr>";
           option_results.append(option_template);
 
-          var option_options = "<option value=" + id + ">" + name + "</option>";
+          var option_options = "<option value=" + id + ">" + name + "</option";
           option_select.append(option_options);
         }
         else { console.log(error) }
@@ -377,9 +377,9 @@ App = {
   countdown: function (proposal_creation, deadline, address, policy_box) {
     var timer = $(".timer" + address);
     var end = new Date();
-    end.setDate(proposal_creation.getDate());
+    end.setDate(proposal_creation.getDate() + Number(deadline));
     end.setHours(proposal_creation.getHours());
-    end.setMinutes(proposal_creation.getMinutes() + Number(deadline));
+    end.setMinutes(proposal_creation.getMinutes());
     end.setSeconds(proposal_creation.getSeconds());
     var x = setInterval(function () {
       timer.empty();

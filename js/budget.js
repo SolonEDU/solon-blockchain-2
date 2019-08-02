@@ -626,7 +626,6 @@ App = {
     }).watch(function (error, event) {
       console.log("event triggered", event)
       $("#modal" + address).modal('hide');
-      App.render();
       App.create_table(address);
       $("#modal" + address).modal('show');
     });
@@ -674,14 +673,17 @@ App = {
                 var amount = App.budgets[id][2];
                 console.log(receiver_address);
                 console.log(App.creator_address)
-                web3.eth.sendTransaction({
-                  to: receiver_address,
-                  from: App.creator_address,
-                  value: web3.toWei(`${amount}`, "ether")
-                }, function (err, transactionHash) {
-                  if (err) { throw err }
-                  else { console.log(transactionHash) }
-                });
+                App.contracts.BudgetCreator.deployed().then(function (creator) {
+                  creator.transfer(receiver_address, `${amount}`);
+                })
+                // web3.eth.sendTransaction({
+                //   to: receiver_address,
+                //   from: App.creator_address,
+                //   value: web3.toWei(`${amount}`, "ether")
+                // }, function (err, transactionHash) {
+                //   if (err) { throw err }
+                //   else { console.log(transactionHash) }
+                // });
                 //App.send_transaction(id);
               }
             }
