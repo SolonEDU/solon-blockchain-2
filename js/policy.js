@@ -205,10 +205,12 @@ App = {
   create_contract: function () {
     $("#button-click").on("click", function () {
       App.contracts.PolicyCreator.deployed().then(function (instance) {
+
         var name = document.getElementById('proposal_name').value
         var description = document.getElementById('proposal_description').value
         var date = new Date().toString()
         var deadline = document.getElementById('deadline').value
+
         instance.add_contract(name, description, date, deadline)
       });
       document.getElementById("loading-contract").className = "mr-2 spinner-border spinner-border-sm";
@@ -235,7 +237,7 @@ App = {
             if (!error) {
               for(var i = 0; i < 4; i++) {data.push(result[i])}
               App.policies.push(data)
-            }else { console.log(error) }
+            } else { console.log(error) }
           });
         });
       }

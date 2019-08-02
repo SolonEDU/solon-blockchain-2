@@ -5,7 +5,7 @@ import "./Budget.sol";
 contract BudgetCreator{
     event NewContract(address indexed _budget_id);
     event Withdraw(address sender, uint amount);
-    event Deposit(uint amount);
+    event Deposit(address sender, uint amount);
 
     mapping(uint => Budget) public budgets;
     uint public contract_count;
@@ -28,12 +28,13 @@ contract BudgetCreator{
 
     function deposit(uint amount) public payable {
         require(msg.value == amount, "unequal amounts");
-        emit Deposit(amount);
+        emit Deposit(msg.sender, amount);
     }
 
-    function withdraw(address payable sender, uint amount) public {
+    function withdraw(address payable sender, uint amount, address cont) public {
         require(amount <= address(this).balance, "request is too large");
         sender.transfer(amount);
+        Budget(cont).sent_yet();
         emit Withdraw(sender, amount);
     }
 

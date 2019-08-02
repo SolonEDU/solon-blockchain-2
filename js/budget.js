@@ -1,92 +1,5 @@
 abi = [
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "approve",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "totalSupply",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "name": "recipient",
-        "type": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "transferFrom",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "name": "addedValue",
-        "type": "uint256"
-      }
-    ],
-    "name": "increaseAllowance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -117,25 +30,6 @@ abi = [
     "constant": true,
     "inputs": [
       {
-        "name": "account",
-        "type": "address"
-      }
-    ],
-    "name": "balanceOf",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
         "name": "",
         "type": "address"
       }
@@ -145,75 +39,6 @@ abi = [
       {
         "name": "",
         "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "name": "subtractedValue",
-        "type": "uint256"
-      }
-    ],
-    "name": "decreaseAllowance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "recipient",
-        "type": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "transfer",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "name": "spender",
-        "type": "address"
-      }
-    ],
-    "name": "allowance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
       }
     ],
     "payable": false,
@@ -321,48 +146,13 @@ abi = [
     "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "Transfer",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "Approval",
-    "type": "event"
+    "constant": false,
+    "inputs": [],
+    "name": "sent_yet",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "constant": false,
@@ -373,15 +163,6 @@ abi = [
       }
     ],
     "name": "vote",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "sent_yet",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -427,7 +208,7 @@ App = {
   },
 
   initContract: function () {
-    web3.eth.getCoinbase(function (err, account) { 
+    web3.eth.getCoinbase(function (err, account) {
       if (err === null) {
         App.account = account;
         $("#accountAddress").html(account);
@@ -462,14 +243,14 @@ App = {
       var date = new Date().toString();
       var deadline = document.querySelector('#deadline').value;
 
-      App.contracts.BudgetCreator.deployed().then(function (instance) { 
+      App.contracts.BudgetCreator.deployed().then(function (instance) {
         App.creator_address = instance.address;
         web3.eth.getBalance(instance.address, function (err, balance) {
           if (err) { console.log(err); }
           else {
             if (amount * 1e18 > balance) {
               errors.innerHTML = "<div class=\"mx-2 \"><div class=\"text-center alert alert-warning\" role=\"alert\">Input amount is greater than the current balance</div></div>";
-            } else {instance.add_contract(name, amount, description, date, deadline, receiver_address);}
+            } else { instance.add_contract(name, amount, description, date, deadline, receiver_address); }
           }
         });
       });
@@ -494,9 +275,9 @@ App = {
           data.push(receiver_address)
           budgetInstance.data(0, function (err, result) {
             if (!err) {
-              for (var i = 0; i < 7; i++) {data.push(result[i])}
+              for (var i = 0; i < 7; i++) { data.push(result[i]) }
               App.budgets.push(data);
-            } else {console.log(err)}
+            } else { console.log(err) }
           })
         });
       }
@@ -515,12 +296,12 @@ App = {
       App.creator_address = instance.address;
       web3.eth.getBalance(instance.address, function (err, res) {
         if (err) { console.log(err); }
-        else {document.querySelector('#contract_balance').innerHTML = `Current Balance: ${res / 1e18} ETH`;}
+        else { document.querySelector('#contract_balance').innerHTML = `Current Balance: ${res / 1e18} ETH`; }
       });
     });
   },
-  
-  render: function () {    
+
+  render: function () {
     App.display_history();
     App.display_ongoing();
     $("#past_display").hide();
@@ -529,9 +310,6 @@ App = {
       var name = App.budgets[id][1];
       var amount = App.budgets[id][2]
       var description = App.budgets[id][3];
-      var creation_date = App.budgets[id][4];
-      var deadline = App.budgets[id][5];
-      var has_sent = App.budgets[id][6];
       var receiver = App.budgets[id][7];
 
       var timer = "<p class=\"timer" + address + "\"> </p>";
@@ -542,11 +320,11 @@ App = {
       var table = "<table class=\"table\"><thead><tr><th scope=\"col\">Option</th><th scope=\"col\">Votes</th></tr></thead><tbody id=\"option_results" + address + "\"></tbody></table>"
       var button = "<button type=\"submit\" class=\"btn btn-primary\">Vote</button>"
       var form = "<form id=\"form" + address + "\" onSubmit=\"App.castVote(" + id + "); return false;\"><div class=\"form-group\"><label for=\"option_select" + address + "\">Select Option</label><select class=\"form-control\" id=\"option_select" + address + "\"></select></div>" + button + "<hr/></form>"
-      var body = "<div class=\"modal-body\"><p>" + "Recipient's Address: " + receiver + "<br> Requested Amount: " + amount + "<br> Description: " + description + "</p> Time Left: " + timer + table + form + "</div>"
+      var body = "<div class=\"modal-body\"><p>" + "Recipient's Address: " + receiver + "<br> Requested Amount: " + amount + " ETH<br> Description: " + description + "</p> Time Left: " + timer + table + form + "</div>"
 
       var budget_box = "<div id=\"box" + address + "\" class=\"col-sm-4 text-center\"><div class=\"container\"><div class=\"modal text-center\" id=\"" + "modal" + address + "\"><div class=\"modal-dialog\"><div class=\"modal-content\">" + header + body + "</div></div></div>" + outside + "</div></div>";
       $("#ongoing_display").append(budget_box);
-      App.countdown(new Date(creation_date), deadline, id, budget_box);
+      App.countdown(id, budget_box);
       App.create_table(address);
     }
     App.deposit_money();
@@ -600,7 +378,7 @@ App = {
     budget.vote(option_id, function (error, result) {
       if (!error) {
         App.listenForNewVote(address);
-      } else {console.log(error)}
+      } else { console.log(error) }
     });
   },
 
@@ -649,39 +427,44 @@ App = {
     });
   },
 
-  listenForNewWithdraw: function(address) {
-    App.contracts.BudgetCreator.deployed().then(function(instance) {
+  listenForNewWithdraw: function (address) {
+    var contract = web3.eth.contract(abi).at(address);
+    App.contracts.BudgetCreator.deployed().then(function (instance) {
       instance.Withdraw({}, {
         fromBlock: 0,
         toBlock: 'latest'
-      }).watch(function(error,event) {
+      }).watch(function (error, event) {
         console.log("withdraw", event)
+        App.get_balance();
       });
     });
   },
 
-  listenForNewDeposit: function(address) {
-    App.contracts.BudgetCreator.deployed().then(function(instance) {
+  listenForNewDeposit: function() {
+    App.contracts.BudgetCreator.deployed().then(function (instance) {
       instance.Deposit({}, {
-        fromBlock: 0,
+        fromBlock: "latest",
         toBlock: "latest"
-      }).watch(function(error,event){
+      }).watch(function (error, event) {
         console.log("deposit", event)
+        App.get_balance();
+        $("#deposit").modal('hide');
       });
     });
   },
 
-  countdown: function (proposal_creation, deadline, id, budget_box) {
+  countdown: function (id, budget_box) {
     var address = App.budgets[id][0];
-    var has_sent = App.budgets[id][6];
-    console.log(has_sent);
-
+    var proposal_creation = new Date(App.budgets[id][4]);
+    var deadline = App.budgets[id][5];
     var timer = $(".timer" + address);
     var end = new Date();
+
     end.setDate(proposal_creation.getDate() /*+ Number(deadline)*/);
     end.setHours(proposal_creation.getHours());
     end.setMinutes(proposal_creation.getMinutes() + Number(deadline));
     end.setSeconds(proposal_creation.getSeconds());
+
     var x = setInterval(function () {
       timer.empty();
       var now = new Date().getTime();
@@ -696,34 +479,35 @@ App = {
 
       if (distance < 0) {
         clearInterval(x);
+        var has_sent = App.budgets[id][6];
+        console.log(has_sent)
+        var receiver_address = App.budgets[id][7];
         var yes_count;
         var no_count;
         var budget = web3.eth.contract(abi).at(address);
-        for (var i = 0; i < 2; i++) {
-          budget.options(i, function (error, option) {
-            if (error) { throw error; }
-            else {
-              if (option[1] === 'Yes') { yes_vote_count = option[2]; }
-              else if (option[1] === 'No') { no_vote_count = option[2]; }
-
-              if (yes_count > no_count && !has_sent) {
-                var receiver_address = App.budgets[id][7];
-                var amount = App.budgets[id][2];
-                if (App.account == receiver_address) {
+        if (receiver_address == App.account) {
+          for (var i = 0; i < 2; i++) {
+            budget.options(i, function (error, option) {
+              if (error) { throw error; }
+              else {
+                if (option[1] === 'Yes') { yes_count = option[2]; }
+                else if (option[1] === 'No') { no_count = option[2]; }
+                if (yes_count > no_count && !has_sent) {
+                  var amount = App.budgets[id][2];
                   App.contracts.BudgetCreator.deployed().then(function (creator) {
-                    creator.withdraw(receiver_address, web3.toWei(`${amount}`, "ether"))
+                    creator.withdraw(receiver_address, web3.toWei(`${amount}`, "ether"), address)
                     App.listenForNewWithdraw();
                   });
                 }
               }
-            }
-          });
-          $('#box' + address).remove();
-          $('#past_display').append(budget_box);
-          $(".timer" + address).empty();
-          App.create_table(address);
-          $('#form' + address).hide();
+            });
+          }
         }
+        $('#box' + address).remove();
+        $('#past_display').append(budget_box);
+        $(".timer" + address).empty();
+        App.create_table(address);
+        $('#form' + address).hide();
       }
     }, 1000)
   },
