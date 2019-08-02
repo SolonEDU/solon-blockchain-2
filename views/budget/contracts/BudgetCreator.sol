@@ -32,6 +32,11 @@ contract BudgetCreator {
     }
 
     function deposit(uint amount) public payable {
-        require(msg.value == amount);
+        require(msg.value == amount, "");
+    }
+
+    function transfer(address payable to, uint256 amount) public {
+        require(msg.sender == to, "send to receiver");
+        to.transfer(amount);
     }
 }

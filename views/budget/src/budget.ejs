@@ -31,80 +31,84 @@
   </div>
 </nav>
 
-<div class="container py-5 mt-5">
-  <h1 class="text-center display-4 pb-3">Budget</h1>
-  <ul class="nav nav-pills justify-content-center">
-    <li class="nav-item">
-      <a class="nav-link active" href="budget">Ongoing</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="budgethistory">History</a>
-    </li>
-  </ul>
-  <br>
-  <h5 class="text-center">Ongoing Proposals</h5>
-  <p class="text-center">Click on any proposal to view details or vote.</p>
-  <p class="text-center" id="accountAddress"></p>
+<div id="content">
+  <div class="container py-5 mt-5">
+    <h1 class="text-center display-4 pb-2">Budget</h1>
+    <div class="text-center">
+      <p class="h5 pb-2" id="contract_balance"></p>
+    </div>
+    <ul class="nav nav-pills justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active" href="budget">Ongoing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="budgethistory">History</a>
+      </li>
+    </ul>
+    <br>
+    <h5 class="text-center">Ongoing Proposals</h5>
+    <p class="text-center">Click on any proposal to view details or vote.</p>
+    <p class="text-center" id="accountAddress" style="display:none"></p>
+    <p id="publicaddress" style="display:none"><%= publicaddress %></p>
 
-  <br>
+    <br>
 
-  <div class="row" id="display">
+    <div class="row" id="display">
+    </div>
+    <br>
+
   </div>
-  <br>
 
-</div>
-
-<!--Deposit Form-->
-<div class="modal fade" id="deposit" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100">Deposit</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-3">
-          <label data-error="wrong" data-success="right" for="deposit_amount">Amount (ETH)</label>
-          <input type="text" id="deposit_amount" class="form-control validate">
+  <!--Deposit Form-->
+  <div class="modal fade" id="deposit" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100">Deposit</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button id="deposit-click" class="btn btn-outline-primary">Submit</button>
-        <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-3">
+            <label data-error="wrong" data-success="right" for="deposit_amount">Amount (ETH)</label>
+            <input type="text" id="deposit_amount" class="form-control validate">
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button id="deposit-click" class="btn btn-outline-primary">Submit</button>
+          <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!--End of Deposit Form-->
+  <!--End of Deposit Form-->
 
-<!--New Policy Form-->
-<div class="modal fade" id="newbudget" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100">Propose New Budget Allocation</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="errors"></div>
-        <div class="md-form mb-3">
-          <label data-error="wrong" data-success="right" for="budget_name">Proposal Name</label>
-          <input type="text" id="budget_name" class="form-control validate">
+  <!--New Budget Form-->
+  <div class="modal fade" id="newbudget" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100">Propose New Budget Allocation</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="md-form mb-3">
-          <label data-error="wrong" data-success="right" for="receiver_address">Receiver Address</label>
-          <input type="text" id="receiver_address" class="form-control validate">
-        </div>
-        <div class="md-form mb-3">
-          <label data-error="wrong" data-success="right" for="budget_amount">Amount</label>
-          <input type="text" id="budget_amount" class="form-control validate">
-        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-3">
+            <label data-error="wrong" data-success="right" for="budget_name">Proposal Name</label>
+            <input type="text" id="budget_name" class="form-control validate">
+          </div>
+          <div class="md-form mb-3">
+            <label data-error="wrong" data-success="right" for="receiver_address">Receiver Address</label>
+            <input type="text" id="receiver_address" class="form-control validate">
+          </div>
+          <div class="md-form mb-3">
+            <label data-error="wrong" data-success="right" for="budget_amount">Amount</label>
+            <input type="text" id="budget_amount" class="form-control validate">
+          </div>
 
-        <!-- Options
+          <!-- Options
             <div class="md-form mb-3">
               <label data-error="wrong" data-success="right" for="form29">Option 1</label>
               <input type="email" id="form29" class="form-control validate">
@@ -116,61 +120,56 @@
             </div>
           -->
 
-        <div class="md-form mb-3">
-          <label data-error="wrong" data-success="right" for="budget_description">Description</label>
-          <textarea type="text" id="budget_description" class="md-textarea form-control" rows="4"></textarea>
+          <div class="md-form mb-3">
+            <label data-error="wrong" data-success="right" for="budget_description">Description</label>
+            <textarea type="text" id="budget_description" class="md-textarea form-control" rows="4"></textarea>
+          </div>
+
+          <br>
+          Time Span
+          <div class="slidecontainer">
+            <input type="range" min="1" max="7" value="1" class="slider" style="width:100%" id="deadline">
+            <p>
+              <i>This proposal will expire in:</i>
+              <b><span id="demo"><b></span> day(s)
+            </p>
+          </div>
+
         </div>
-
-        <br>
-        Time Span
-        <div class="slidecontainer">
-          <input type="range" min="1" max="7" value="1" class="slider" style="width:100%" id="deadline">
-          <p>
-            <i>This proposal will expire in:</i>
-            <b><span id="demo"><b></span> day(s)
-          </p>
+        <div class="modal-footer d-flex justify-content-center">
+          <button id="button-click" class="btn btn-outline-primary">Submit</button>
+          <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
         </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button id="button-click" class="btn btn-outline-primary">Submit</button>
-        <button class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
-</div>
-<!--End of New Policy Form-->
+  <!--End of New Budget Form-->
 
-<div class="navbar navbar-default fixed-bottom">
-  <!--Deposit Button-->
-  <div>
-    <div class="float-left">
-      <a href="#" data-toggle="modal" data-target="#deposit" style="color:white;">
-        <button type="button" class="btn btn-warning btn-lg" style="margin:18px 10px">
-          Deposit
-        </button>
-      </a>
+  <div class="navbar navbar-default fixed-bottom">
+    <!--Deposit Button-->
+    <div>
+      <div class="float-left">
+        <a href="#" data-toggle="modal" data-target="#deposit" style="color:white;">
+          <button type="button" class="btn btn-warning btn-lg" style="margin:18px 10px">
+            Deposit
+          </button>
+        </a>
+      </div>
     </div>
-  </div>
-  <!--End of Deposit Button-->
+    <!--End of Deposit Button-->
 
-  <div>
-    <div class="float-middle">
-      <p id="contract_balance"></p>
+    <!--New Budget Button-->
+    <div>
+      <div class="float-right">
+        <a href="#" data-toggle="modal" data-target="#newbudget" style="color:white;">
+          <button type="button" class="btn btn-primary btn-lg" style="border-radius:100%; margin:18px 10px;">
+            +
+          </button>
+        </a>
+      </div>
     </div>
+    <!--End of New Budget Button-->
   </div>
-
-  <!--New Policy Button-->
-  <div>
-    <div class="float-right">
-      <a href="#" data-toggle="modal" data-target="#newbudget" style="color:white;">
-        <button type="button" class="btn btn-primary btn-lg" style="border-radius:100%; margin:18px 10px;">
-          +
-        </button>
-      </a>
-    </div>
-  </div>
-  <!--End of New Policy Button-->
 </div>
 
 <script>
