@@ -3,4 +3,6 @@ npm-debug.log
 .DS_Store
 /.env
 /views/policy/node_modules
+/views/policy/test
 /views/budget/node_modules
+/views/budget/test

@@ -17,3 +17,17 @@ $ npm start
 ### MongoDB
 
 Open "config/keys.js" and add your MongoDB URI, local or Atlas
+
+### Truffle migrations 
+
+- Modify the truffle-config.js files in views/budget and in views/policy to include the mnemonic of your MetaMask account. 
+
+- Create an infura account and paste the link for your chosen network
+
+```sh
+$ truffle migrate --reset --network \(chosen network\)
+```
+
+- move the .json files from views/budget/build/contracts and from views/policy/build/contract into the js folder 
+
+- replace the abi vars in js/budget.js and js/policy.js with the ABIs from Budget.json and Policy.json
